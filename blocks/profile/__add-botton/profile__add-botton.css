@@ -1,0 +1,13 @@
+.profile__add-botoon {
+    width: 150px;
+    height: 50px;
+    object-fit: fill;
+}
+
+ 
+@media screen and (max-width: 767px) {
+    .profile__add-botoon {
+        width: 282px;
+        height: 50px;
+    }
+  }
