@@ -1,0 +1,27 @@
+@import url("__item/element__item.css");
+@import url("__image/element__image.css");
+@import url("__text/element__text.css");
+@import url("__vector/element__vector.css");
+
+
+.elements {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+    gap: 17px;
+    max-width: 880px;
+}
+
+  @media screen and (max-width: 1023px) {
+    .elements {
+        max-width: 581px;
+      }
+    }
+    
+
+    @media screen and (max-width: 767px) {
+      .elements {
+        max-width: 282px;
+        row-gap: 20px;
+      }
+    }
