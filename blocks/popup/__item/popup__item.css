@@ -1,0 +1,21 @@
+.popup__item {
+    border: 0;
+    width: 358px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #000000;
+    opacity: 0.2;
+    font-size: 14px;
+    line-height: 17px;
+    margin: 0;
+    margin-bottom: 30px;
+}
+
+        
+@media screen and (max-width: 767px) {
+    .popup__item {
+        margin: 0 auto 75px auto;
+        font-size: 18px;
+        line-height: 22px;
+        width: 238px;
+    }
+  }

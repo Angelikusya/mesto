@@ -1,0 +1,24 @@
+@import url("__heading/popup__heading.css");
+@import url("__form/popup__form.css");
+@import url("__item/popup__item.css");
+@import url("__name/popup__name.css");
+@import url("__button/popup__button.css");
+@import url("__field/popup__field.css");
+
+
+.popup {
+    margin: 0 auto;
+    max-width: 430px;
+    max-height: 330px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    transition: top .5s;
+}
+
+  @media screen and (max-width: 767px) {
+    .popup {
+        max-width: 282px;
+        max-height: 322px;
+    }
+  }
+
