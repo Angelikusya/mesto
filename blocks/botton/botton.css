@@ -1,9 +1,0 @@
-.botton {
-    cursor: pointer;
-    transition: opacity .3s;
-    flex-shrink: 0;
-}
-
-.botton:hover {
-    opacity: .6;
-}

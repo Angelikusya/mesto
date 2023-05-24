@@ -3,16 +3,18 @@
     font-size: 24px;
     line-height: 29px;
     color: #000000;
-    padding-top: 34px;
-    margin: 0 auto 54px auto;
     max-width: 330px;
+    text-align: center;
+    margin: 0 auto;
+    padding-bottom: 54px;
+
 }
 
   @media screen and (max-width: 767px) {
     .popup__heading {
-      margin: 0 auto 75px auto;
       font-size: 18px;
       line-height: 22px;
       max-width: 238px;
+      padding-bottom: 75px;
     }
   }

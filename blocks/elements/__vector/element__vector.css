@@ -1,0 +1,7 @@
+.element__vector {
+    background: url("../../../images/like.svg") no-repeat;
+    width: 22px;
+    height: 19px;
+    background-size: cover;
+    border: 0;
+}

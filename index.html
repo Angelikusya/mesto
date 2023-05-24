@@ -20,15 +20,16 @@
                         <div class="profile__container">
                             <h1 class="profile__name">Жак-Ив Кусто
                             </h1>
-                            <div class="botton profile__edit-botton">
-                                <img src="./images/Edit.svg" alt="Кнопка исправить" class="profile__edit-image">
-                            </div>
+                            <button
+                            type="button"
+                            class="button profile__edit-button">
+                            </button>
                         </div>
                         <h2 class="profile__profession">Исследователь океана
                         </h2>
                     </div>
                 </div>
-                <div class="botton profile__add-botton">
+                <div class="button profile__add-botton">
                     <img src="./images/Add.svg" alt="Кнопка добавить" class="profile__add-image">
                 </div>
             </section>
@@ -37,42 +38,60 @@
                     <img src="./images/lissabon.jpg" alt="Лиссабон" class="element__image">
                     <div class="element__description">
                         <p class="element__text">Лиссабон</p>
-                        <img src="./images/like.svg" alt="Лайк" class="botton element__vector">
+                        <button
+                            type="button"
+                            class="button element__vector">
+                        </button>
                     </div>
                 </div>
                 <div class="element__item">
                     <img src="./images/santtropez.jpg" alt="Сант Тропе" class="element__image">
                     <div class="element__description">
                         <p class="element__text">Сен-Тропе</p>
-                        <img src="./images/like.svg" alt="Лайк" class="botton element__vector">
+                        <button
+                            type="button"
+                            class="button element__vector">
+                        </button>
                     </div>
                 </div>
                 <div class="element__item">
                     <img src="./images/winparis.jpg" alt="Окно Париж" class="element__image">
                     <div class="element__description">
                         <p class="element__text">Париж</p>
-                        <img src="./images/like.svg" alt="Лайк" class="botton element__vector">
+                        <button
+                            type="button"
+                            class="button element__vector">
+                        </button>
                     </div>
                 </div>
                 <div class="element__item">
                     <img src="./images/lissabon.jpg" alt="Лиссабон" class="element__image">
                     <div class="element__description">
                         <p class="element__text">Лиссабон</p>
-                        <img src="./images/like.svg" alt="Лайк" class="botton element__vector">
+                        <button
+                            type="button"
+                            class="button element__vector">
+                        </button>
                     </div>
                 </div>
                 <div class="element__item">
                     <img src="./images/santtropez.jpg" alt="Сант Тропе" class="element__image">
                     <div class="element__description">
                         <p class="element__text">Сен-Тропе</p>
-                        <img src="./images/like.svg" alt="Лайк" class="botton element__vector">
+                        <button
+                            type="button"
+                            class="button element__vector">
+                        </button>
                     </div>
                 </div>
                 <div class="element__item">
-                    <img src="./images/winparis.jpg" alt="Окно Париж" class="botton element__image">
+                    <img src="./images/winparis.jpg" alt="Окно Париж" class="element__image">
                     <div class="element__description">
                         <p class="element__text">Парижский вайб в окнах</p>
-                        <img src="./images/like.svg" alt="Лайк" class="botton element__vector">
+                        <button
+                            type="button"
+                            class="button element__vector">
+                        </button>
                     </div>
                 </div>
             </section>
@@ -81,31 +100,31 @@
                 </p>
             </footer>
 
-                    <!--Popup: Редактировать профиль-->
+                    <!--Popup: Изменить профиль-->
 
-            <div class="popup">
-                <h2 class="popup__heading">Редактировать профиль</h2>
-                <form class="popup__form">
-                    <fieldset class="popup__field">
-                        <input
-                            type="text" 
-                            class="popup__item popup__name">
-                    </label>
-                    <label class="popup__field">
-                        <input 
-                            type="text" 
-                            class="popup__item popup__profession">
-                    </fieldset>
+            <div class="popup popup_closed" id="popup">
+                <div class="popup__container">
+                    <h2 class="popup__heading">Редактировать профиль</h2>
+                    <form class="popup__form" name="profileEditPopupForm">
+                        <fieldset class="popup__field">
+                            <input
+                                type="text" 
+                                class="popup__item popup__input_type_job">
+                        </fieldset>
+                        <fieldset class="popup__field">
+                            <input 
+                                type="text" 
+                                class="popup__item popup__input_type_profession">
+                        </fieldset>
 
-                    <fieldset class="popup__field">
-                        <input type="submit" class="button__save">
-                    </fieldset>
-                </form>
+                        <button class="popup__button" type="submit">Сохранить</button>
+                    </form>
+                    <button type="button" class="button popup__button-close"></button>
+                </div>
             </div>
 
-            
-            <skript>
-            </skript>
+
+            <script src="components/Popup.js"></script>
         </main>
     </div>
 </body>

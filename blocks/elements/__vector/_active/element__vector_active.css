@@ -1,3 +1,14 @@
 .element__vector_active {
-    
+    background: url("../../../../images/likeactive.svg") no-repeat;
+    width: 22px;
+    height: 19px;
+    background-size: cover;
+    border: 0;
+    cursor: pointer;
+    transition: opacity .3s;
+    flex-shrink: 0;
+}
+
+.element__vector_active:hover {
+    opacity: .6;
 }
