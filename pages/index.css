@@ -15,12 +15,12 @@
 @import url("../blocks/profile/__add-botton/profile__add-botton.css");
 @import url("../blocks/button/button.css");
 @import url("../blocks/elements/elements.css");
-@import url("../blocks/elements/__item/element__item.css");
-@import url("../blocks/elements/__image/element__image.css");
-@import url("../blocks/elements/__text/element__text.css");
-@import url("../blocks/elements/__vector/element__vector.css");
-@import url("../blocks/elements/__vector/_active/element__vector_active.css");
-@import url("../blocks/elements/__description/element__description.css");
+@import url("../blocks/element/element.css");
+@import url("../blocks/element/__image/element__image.css");
+@import url("../blocks/element/__text/element__text.css");
+@import url("../blocks/element/__vector/element__vector.css");
+@import url("../blocks/element/__vector/_active/element__vector_active.css");
+@import url("../blocks/element/__description/element__description.css");
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/footer/__copyrights/footer__copyrights.css"); /* не поняла, почему ЯП ругался, когда я загружала про проверку работу, пришлось перенести сюда из файла footer */
 @import url("../blocks/popup/popup.css");
