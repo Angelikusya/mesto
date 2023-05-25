@@ -3,10 +3,16 @@
 @import url("../blocks/page/page.css");
 @import url("../blocks/header/header.css");
 @import url("../blocks/profile/profile.css");
+@import url("../blocks/profile/__add-image/profile__add-image.css");
 @import url("../blocks/button/button.css");
 @import url("../blocks/elements/elements.css");
+@import url("../blocks/elements/__vector/_active/element__vector_active.css");
 @import url("../blocks/footer/footer.css");
+@import url("../blocks/footer/__copyrights/footer__copyrights.css"); /* не поняла, почему ЯП ругался, когда я загружала про проверку работу, пришлось перенести сюда из файла footer */
 @import url("../blocks/popup/popup.css");
+@import url("../blocks/popup/_opened/popup_opened.css");
+@import url("../blocks/popup/_closed/popup_closed.css");
+
 
 
 
