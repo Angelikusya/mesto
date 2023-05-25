@@ -1,11 +1,3 @@
-@import url("__item/element__item.css");
-@import url("__image/element__image.css");
-@import url("__text/element__text.css");
-@import url("__vector/element__vector.css");
-@import url("__description/element__description.css");
-
-
-
 .elements {
     margin: 0 auto;
     display: grid;
