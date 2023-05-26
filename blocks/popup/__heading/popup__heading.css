@@ -4,10 +4,9 @@
     line-height: 29px;
     color: #000000;
     max-width: 330px;
-    text-align: center;
-    margin: 0 auto;
+    margin-block: 0;
+    margin-inline: 0;
     padding-bottom: 54px;
-
 }
 
   @media screen and (max-width: 767px) {

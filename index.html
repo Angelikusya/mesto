@@ -9,13 +9,12 @@
 <body>
     <div class="page">
         <header class="header">
-            <div class="header__logo">
-            </div>
+            <img src="./images/logo.svg" alt="Лого карта" class="header__logo">
         </header>
         <main>
             <section class="profile">
                 <div class="profile__content">
-                    <img src="./images/jaciv.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
+                    <img src="./images/jaciv.jpg" alt="фото профиля" class="profile__avatar">
                     <div class="profile__info">
                         <div class="profile__container">
                             <h1 id="profile__name" class="profile__name">Жак-Ив Кусто</h1>
@@ -27,15 +26,16 @@
                         <p id="profile__job" class="profile__job">Исследователь океана</p>
                     </div>
                 </div>
-                <div class="button profile__add-botton">
-                    <img src="./images/Add.svg" alt="Кнопка добавить" class="profile__add-image">
-                </div>
+                <button
+                    type="button"
+                    class="button profile__add-button">
+                </button>
             </section>
             <section class="elements">
                 <div class="element">
                     <img src="./images/lissabon.jpg" alt="Лиссабон" class="element__image">
                     <div class="element__description">
-                        <p class="element__text">Лиссабон</p>
+                        <h2 class="element__subheading">Лиссабон</h2>
                         <button
                             type="button"
                             class="button element__vector">
@@ -45,85 +45,89 @@
                 <div class="element">
                     <img src="./images/santtropez.jpg" alt="Сант Тропе" class="element__image">
                     <div class="element__description">
-                        <p class="element__text">Сен-Тропе</p>
+                        <h2 class="element__subheading">Сен-Тропе</h2>
                         <button
                             type="button"
                             class="button element__vector">
                         </button>
                     </div>
                 </div>
-                <div class="element">
+                <article class="element">
                     <img src="./images/winparis.jpg" alt="Окно Париж" class="element__image">
                     <div class="element__description">
-                        <p class="element__text">Париж</p>
+                        <h2 class="element__subheading">Париж</h2>
                         <button
                             type="button"
                             class="button element__vector">
                         </button>
                     </div>
-                </div>
-                <div class="element">
+                </article>
+                <article class="element">
                     <img src="./images/lissabon.jpg" alt="Лиссабон" class="element__image">
                     <div class="element__description">
-                        <p class="element__text">Лиссабон</p>
+                        <h2 class="element__subheading">Лиссабон</h2>
                         <button
                             type="button"
                             class="button element__vector">
                         </button>
                     </div>
-                </div>
-                <div class="element">
+                </article>
+                <article class="element">
                     <img src="./images/santtropez.jpg" alt="Сант Тропе" class="element__image">
                     <div class="element__description">
-                        <p class="element__text">Сен-Тропе</p>
+                        <h2 class="element__subheading">Сен-Тропе</h2>
                         <button
                             type="button"
                             class="button element__vector">
                         </button>
                     </div>
-                </div>
-                <div class="element">
+                </article>
+                <article class="element">
                     <img src="./images/winparis.jpg" alt="Окно Париж" class="element__image">
                     <div class="element__description">
-                        <p class="element__text">Парижский вайб в окнах</p>
+                        <h2 class="element__subheading">Парижский вайб в окнах</h2>
                         <button
                             type="button"
                             class="button element__vector">
                         </button>
                     </div>
-                </div>
+                </article>
             </section>
-            <footer class="footer">
-                <p class="footer__copyrights">&copy; 2023 Mesto Russia
-                </p>
-            </footer>
 
                     <!--Popup: Изменить профиль-->
 
-            <div class="popup popup_closed" id="popup">
+            <div class="popup" id="popup">
                 <div class="popup__container">
                     <h2 class="popup__heading">Редактировать профиль</h2>
                     <form class="popup__form" name="profileEditPopupForm">
-                        <fieldset class="popup__field">
+                        <div class="popup__field">
                             <input
                                 type="text" 
-                                class="popup__item popup__item_name">
-                        </fieldset>
-                        <fieldset class="popup__field">
+                                name = "Name"
+                                class="popup__input popup__input_type_name"
+                                placeholder="Введите имя"
+                                required>
+                        </div>
+                        <div class="popup__field">
                             <input 
                                 type="text" 
-                                class="popup__item popup__item_job">
-                        </fieldset>
+                                name = "Job"
+                                class="popup__input popup__input_type_job"
+                                placeholder="Введите профессию" 
+                                required>
+                        </div>
 
                         <button class="popup__button" type="submit">Сохранить</button>
                     </form>
                     <button type="button" class="button popup__button-close"></button>
                 </div>
             </div>
-
-
-            <script src="pages/index.js"></script>
         </main>
+        <footer class="footer">
+            <p class="footer__copyrights">&copy; 2023 Mesto Russia
+            </p>
+        </footer>
     </div>
+<script src="scripts/script.js"></script>
 </body>
 </html>
