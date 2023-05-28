@@ -11,6 +11,7 @@
 
   @media screen and (max-width: 1023px) {
     .profile__add-button {
+      background: url("../../../images/Addsmall.svg") no-repeat center;
         width: 581px;
     }
   }

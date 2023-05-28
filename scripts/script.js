@@ -1,18 +1,3 @@
-//поставить лайк
-
-let vectors = document.querySelectorAll('.element__vector'); // кнопка с лайками 
-
- 
-
-//функция, если нет лайка, то поставить лайк. Если лайк есть, то убрать его 
-
-vectors.forEach(function(vector) { 
-  vector.addEventListener('click', function() { 
-        vector.classList.add('element__vector_active'); 
-        vector.classList.remove('button');
-}) }); 
-
-
 // РАБОТА С ПОПАПОМ
 
 //вызов селекторов для работы с редактирумой формой 
@@ -25,9 +10,7 @@ let profileName = document.querySelector('.profile__name');
 let profileJob = document.querySelector('.profile__job');
 let buttonClose = document.querySelector('.popup__button-close');
 
-//открытие попапа по клику на кнопку "редактировать"
-
-//открытие попапа по клику на кнопку "редактировать"
+//открытие попапа по клику на кнопку "редактировать/edit"
 function openPopup() {
   popup.classList.add('popup_opened');
   nameInput.value = profileName.textContent;
@@ -39,7 +22,7 @@ function handleFormSubmit(evt) {
   evt.preventDefault(); // Отменить стандартное поведение формы
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  popup.classList.remove('popup_opened');
+  closePopup();
 }
 
 //закрытие попапа на кнопку крестик
@@ -53,3 +36,13 @@ editButton.addEventListener('click', openPopup);
 formElement.addEventListener('submit', handleFormSubmit);
 
 buttonClose.addEventListener('click', closePopup);
+
+
+
+//поставить лайк
+//let vectors = document.querySelectorAll('.element__vector'); // кнопка с лайками 
+//vectors.forEach(function(vector) { 
+//vector.addEventListener('click', function() { 
+//        vector.classList.add('element__vector_active'); 
+//        vector.classList.remove('button');
+//}) }); 
