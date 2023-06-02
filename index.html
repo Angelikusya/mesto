@@ -96,7 +96,7 @@
 
                     <!--Popup: Изменить профиль-->
 
-            <div class="popup" id="popup">
+            <div class="popup popup-edit" id="popup">
                 <div class="popup__container">
                     <h2 class="popup__heading">Редактировать профиль</h2>
                     <form class="popup__form" name="profileEditPopupForm">
@@ -117,6 +117,30 @@
                     <button type="button" class="button popup__button-close"></button>
                 </div>
             </div>
+
+                                <!--Popup: Изменить место-->
+
+                                <div class="popup popup-add" id="popup">
+                                    <div class="popup__container">
+                                        <h2 class="popup__heading">Новое место</h2>
+                                        <form class="popup__form" name="profileEditPopupForm">
+                                            <input
+                                                type="text" 
+                                                name = "Name"
+                                                class="popup__input popup__input_type_name"
+                                                placeholder="Название"
+                                                required>
+                                                <input 
+                                                    type="text" 
+                                                    name = "Job"
+                                                    class="popup__input popup__input_type_job"
+                                                    placeholder="Ссылка на картинку"
+                                                    required>
+                                            <button class="popup__button" type="submit">Создать</button>
+                                        </form>
+                                        <button type="button" class="button popup__button-close"></button>
+                                    </div>
+                                </div>
         </main>
         <footer class="footer">
             <p class="footer__copyrights">&copy; 2023 Mesto Russia
