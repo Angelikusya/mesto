@@ -32,66 +32,7 @@
                 </button>
             </section>
             <section class="elements">
-                <div class="element">
-                    <img src="./images/lissabon.jpg" alt="Лиссабон" class="element__image">
-                    <div class="element__description">
-                        <h2 class="element__subheading">Лиссабон</h2>
-                        <button
-                            type="button"
-                            class="element__vector">
-                        </button>
-                    </div>
-                </div>
-                <div class="element">
-                    <img src="./images/santtropez.jpg" alt="Сант Тропе" class="element__image">
-                    <div class="element__description">
-                        <h2 class="element__subheading">Сен-Тропе</h2>
-                        <button
-                            type="button"
-                            class="element__vector">
-                        </button>
-                    </div>
-                </div>
-                <article class="element">
-                    <img src="./images/winparis.jpg" alt="Окно Париж" class="element__image">
-                    <div class="element__description">
-                        <h2 class="element__subheading">Париж</h2>
-                        <button
-                            type="button"
-                            class="element__vector">
-                        </button>
-                    </div>
-                </article>
-                <article class="element">
-                    <img src="./images/lissabon.jpg" alt="Лиссабон" class="element__image">
-                    <div class="element__description">
-                        <h2 class="element__subheading">Лиссабон</h2>
-                        <button
-                            type="button"
-                            class="element__vector">
-                        </button>
-                    </div>
-                </article>
-                <article class="element">
-                    <img src="./images/santtropez.jpg" alt="Сант Тропе" class="element__image">
-                    <div class="element__description">
-                        <h2 class="element__subheading">Сен-Тропе</h2>
-                        <button
-                            type="button"
-                            class="element__vector">
-                        </button>
-                    </div>
-                </article>
-                <article class="element">
-                    <img src="./images/winparis.jpg" alt="Окно Париж" class="element__image">
-                    <div class="element__description">
-                        <h2 class="element__subheading">Парижский вайб в окнах</h2>
-                        <button
-                            type="button"
-                            class="element__vector">
-                        </button>
-                    </div>
-                </article>
+
             </section>
 
                     <!--Popup: Изменить профиль-->
@@ -99,7 +40,7 @@
             <div class="popup popup-edit" id="popup">
                 <div class="popup__container">
                     <h2 class="popup__heading">Редактировать профиль</h2>
-                    <form class="popup__form" name="profileEditPopupForm">
+                    <form class="popup-edit__form popup__form" name="profileEditPopupForm">
                         <input
                             type="text" 
                             name = "Name"
@@ -114,34 +55,54 @@
                                 required>
                         <button class="popup__button" type="submit">Сохранить</button>
                     </form>
-                    <button type="button" class="button popup__button-close"></button>
+                    <button type="button" class="button popup-edit__button-close popup__button-close"></button>
                 </div>
             </div>
 
-                                <!--Popup: Изменить место-->
+            <!--Popup: Изменить место-->
 
-                                <div class="popup popup-add" id="popup">
-                                    <div class="popup__container">
-                                        <h2 class="popup__heading">Новое место</h2>
-                                        <form class="popup__form" name="profileEditPopupForm">
-                                            <input
-                                                type="text" 
-                                                name = "Name"
-                                                class="popup__input popup__input_type_name"
-                                                placeholder="Название"
-                                                required>
-                                                <input 
-                                                    type="text" 
-                                                    name = "Job"
-                                                    class="popup__input popup__input_type_job"
-                                                    placeholder="Ссылка на картинку"
-                                                    required>
-                                            <button class="popup__button" type="submit">Создать</button>
-                                        </form>
-                                        <button type="button" class="button popup__button-close"></button>
-                                    </div>
-                                </div>
-        </main>
+            <div class="popup popup-add" id="popup">
+                <div class="popup__container">
+                    <h2 class="popup__heading">Новое место</h2>
+                    <form class="popup-add__form popup__form" name="profileAddPopupForm">
+                        <input
+                            type="text" 
+                            name = "Name"
+                            class="popup__input popup__input_type_place"
+                            placeholder="Название"
+                            required>
+                            <input 
+                                type="text" 
+                                name = "Job"
+                                class="popup__input popup__input_type_image"
+                                placeholder="Ссылка на картинку"
+                                required>
+                        <button class="popup__button" type="submit">Создать</button>
+                    </form>
+                    <button type="button" class="button popup__button-close popup-add__button-close"></button>
+                </div>
+            </div>
+
+                    <!--Шаблон для ввода новых картинок-->
+
+            <template class="element-template" id="element-template">
+                <article class="element">
+                    <button 
+                        type="button"
+                        class="element__trash">
+                    </button> 
+                    <img src="#" alt="Фото" class="element__image">
+                    <div class="element__description">
+                        <h2 class="element__subheading"></h2>
+                        <button
+                            type="button"
+                            class="element__vector">
+                        </button>
+                    </div>
+                </article>
+            </template>
+
+</main>
         <footer class="footer">
             <p class="footer__copyrights">&copy; 2023 Mesto Russia
             </p>

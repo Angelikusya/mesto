@@ -3,6 +3,7 @@
     max-height: 282px;
     object-fit: cover;
     object-position: center;
-    box-sizing: border-box;
     border-radius: 10px 10px 0px 0px;
+    aspect-ratio: 1 / 1;
+    display: block;
 }

@@ -1,63 +1,151 @@
-// РАБОТА С ПОПАПОМ
+// Появление карточек при открытии сайта
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
 
-//вызов селекторов для работы с редактирумой формой 
+//вызов селекторов попапа edit
 let editButton = document.querySelector('.profile__edit-button');
-let popup = document.querySelector('.popup');
-let formElement = document.querySelector('.popup__form');
+let popupEdit = document.querySelector('.popup-edit');
+let formElementEdit = document.querySelector('.popup-edit__form'); // 
 let nameInput = document.querySelector('.popup__input_type_name');
 let jobInput = document.querySelector('.popup__input_type_job');
 let profileName = document.querySelector('.profile__name');
 let profileJob = document.querySelector('.profile__job');
-let buttonClose = document.querySelector('.popup__button-close');
+let buttonCloseEdit = document.querySelector('.popup-edit__button-close');
 
+// Вызов шаблона
+const elementsCard = document.querySelector('.elements');
+const elementTemplate = document.querySelector('.element-template').content; 
 
-let addButton = document.querySelector('.profile__add-button'); //новое 
+// вызов селекторов попапа add
+let addButton = document.querySelector('.profile__add-button');
 let popupAdd = document.querySelector('.popup-add');
+let buttonCloseAdd = document.querySelector('.popup-add__button-close');
+let placeInput = document.querySelector('.popup__input_type_place');
+let imageInput = document.querySelector('.popup__input_type_image');
+let placeImage = document.querySelector('.element__image');
+let placeName = document.querySelector('.element__subheading');
+
+let formElementAdd = document.querySelector('.popup-add__form'); // 
+
+
+// открытие сайт с картинками из массива + поставить лайк
+
+initialCards.forEach(function (element) {
+  const cardElement = elementTemplate.querySelector('.element').cloneNode(true);  //копируем содержимое шаблона
+  cardElement.querySelector('.element__subheading').textContent = element.name;
+  cardElement.querySelector('.element__image').src = element.link;
+  cardElement.querySelector('.element__vector').addEventListener('click', function (evt) {
+    evt.target.classList.toggle('element__vector_active');
+  });
+  
+  elementsCard.append(cardElement)
+}) ;
+
+
+// РАБОТА С ПОПАПОМ EDIT 
 
 //открытие попапа по клику на кнопку "редактировать/edit"
-function openPopup() {
-  popup.classList.add('popup_opened');
+function openPopupEdit() {
+  popupEdit.classList.add('popup_opened');
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 }
+
+// отменить отправку и добавить текущие значения в попапе edit 
+function handleFormSubmit(evt) {
+  evt.preventDefault(); // Отменить стандартное поведение формы
+  profileName.textContent = nameInput.value;
+  profileJob.textContent = jobInput.value;
+  closePopupEdit();
+}
+
+//закрытие попапа на кнопку крестик
+function closePopupEdit() {
+  popupEdit.classList.remove('popup_opened');
+}
+
+
+// слушатели функций
+// открываем попап с редактирование профиля
+editButton.addEventListener('click', openPopupEdit);
+//закрываем попап Edit по кнопке закрыть
+buttonCloseEdit.addEventListener('click', closePopupEdit);
+
+//отправляем форму загрузки 
+formElementEdit.addEventListener('submit', handleFormSubmit);
+
+
+
+// РАБОТА С ПОПАПОМ ADD 
 
 //открытие попапа по клику на кнопку "добавить/add"
 function openPopupAdd() {
   popupAdd.classList.add('popup_opened');
 }
 
+// добавление новой карточки
+function addPlace(placeValue, imageValue) {
+  const cardElement = elementTemplate.querySelector('.element').cloneNode(true);  //копируем содержимое шаблона
+  cardElement.querySelector('.element__subheading').textContent = placeValue; // обозначаем тип содержания конкретного места
+  cardElement.querySelector('.element__image').src = imageValue;
+  cardElement.querySelector('.element__vector').addEventListener('click', function (evt) {
+    evt.target.classList.toggle('element__vector_active');
+  });
+  elementsCard.prepend(cardElement);
+} ;
 
-// Обработчик «отправки» формы, хотя пока она никуда отправляться не будет
+//через кнопку добавить/add добавляем информацию на страницу
+addButton.addEventListener('click', function () {
+  const place = document.querySelector('.popup__input_type_place');
+  const image = document.querySelector('.popup__input_type_image');
+});
+
+// отменить отправку и добавить текущие значения в попапе add
 function handleFormSubmit(evt) {
   evt.preventDefault(); // Отменить стандартное поведение формы
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
-  closePopup();
+  addPlace(placeInput.value, imageInput.value);
+  closePopupAdd();
 }
+
+
 
 //закрытие попапа на кнопку крестик
-function closePopup() {
-    popup.classList.remove('popup_opened');
+function closePopupAdd() {
+  popupAdd.classList.remove('popup_opened');
 }
 
-// слушатели функций
-// открываем попап с редактирование профиля
-editButton.addEventListener('click', openPopup);
 
-// открываем попап с изменением фото в галерее
+//слушатели функции ADD
+//отправляем форму загрузки 
+formElementAdd.addEventListener('submit', handleFormSubmit);
+// открываем попап с редактирование профиля
 addButton.addEventListener('click', openPopupAdd);
 
-//отправляем форму загрузки 
-formElement.addEventListener('submit', handleFormSubmit);
-
-//закрываем попап по кнопке закрыть
-buttonClose.addEventListener('click', closePopup);
+//закрываем попап Add по кнопке закрыть
+buttonCloseAdd.addEventListener('click', closePopupAdd);
 
 
-
-//поставить лайк
-let vectors = document.querySelectorAll('.element__vector'); // кнопка с лайками 
-vectors.forEach(function(vector) { 
-vector.addEventListener('click', function() {  // добавлен слушатель в функцию
-      vector.classList.add('element__vector_active'); 
-}) }); 

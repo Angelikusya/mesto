@@ -5,6 +5,7 @@
     background-size: cover;
     border: 0;
     transition: opacity .3s;
+    cursor: pointer;
 }
 
 .element__vector:hover {
