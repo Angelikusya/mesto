@@ -29,7 +29,7 @@ const initialCards = [
 //вызов селекторов попапа edit
 let editButton = document.querySelector('.profile__edit-button');
 let popupEdit = document.querySelector('.popup-edit');
-let formElementEdit = document.querySelector('.popup-edit__form'); // 
+let formElementEdit = document.querySelector('.popup-edit__form'); 
 let nameInput = document.querySelector('.popup__input_type_name');
 let jobInput = document.querySelector('.popup__input_type_job');
 let profileName = document.querySelector('.profile__name');
@@ -48,8 +48,8 @@ let placeInput = document.querySelector('.popup__input_type_place');
 let imageInput = document.querySelector('.popup__input_type_image');
 let placeImage = document.querySelector('.element__image');
 let placeName = document.querySelector('.element__subheading');
+let formElementAdd = document.querySelector('.popup-add__form'); 
 
-let formElementAdd = document.querySelector('.popup-add__form'); // 
 
 
 // открытие сайт с картинками из массива + поставить лайк
@@ -131,13 +131,10 @@ function handleFormSubmit(evt) {
   closePopupAdd();
 }
 
-
-
 //закрытие попапа на кнопку крестик
 function closePopupAdd() {
   popupAdd.classList.remove('popup_opened');
 }
-
 
 //слушатели функции ADD
 //отправляем форму загрузки 
@@ -147,5 +144,83 @@ addButton.addEventListener('click', openPopupAdd);
 
 //закрываем попап Add по кнопке закрыть
 buttonCloseAdd.addEventListener('click', closePopupAdd);
+
+
+
+// РАБОТА С КАРТОЧКОЙ 
+const trashButtons = document.querySelectorAll('.element__trash');
+
+//функция удаления объектов
+function removeElement() {
+    const element = document.querySelector('.element');
+    element.remove();
+  };
+
+//для каждого удаления поставить слушатель функции
+  trashButtons.forEach(function(trashButton) {
+    trashButton.addEventListener('click', removeElement)
+  });
+  
+
+
+
+//РАБОТА С УВЕЛИЧЕНИЕМ КАРТИНКИ
+let popupZoom = document.querySelector('.popup-zoom');
+let buttonCloseZoom = document.querySelector('.popup-zoom__button-close');
+let zoomImages = document.querySelectorAll('.popup-zoom__image');
+let placeImages = document.querySelectorAll('.element__image');
+let placePopup = document.querySelectorAll('.popup-zoom__subheading');
+
+// 
+
+const openPopupZoom = (event) => {
+  const imageUrl = event.target.getAttribute('src');
+  const popupImage = popupZoom.querySelector('.popup-zoom__image');
+  popupImage.setAttribute('src', imageUrl);
+  
+  const subheading = event.target.closest('.element').querySelector('.element__subheading').textContent;
+  const popupSubheading = popupZoom.querySelector('.popup-zoom__subheading');
+  popupSubheading.textContent = subheading;
+  
+  popupZoom.classList.add('popup_opened');
+};
+
+
+placeImages.forEach(image => {
+  image.addEventListener('click', openPopupZoom);
+});
+
+// function zoomPopupImage() {
+//   placeValue = placePopup.textContent;
+//   jobInput.value = profileJob.textContent;
+//   popupZoom.classList.add('popup_opened');
+// };
+
+// //
+// placeImages.forEach(function(placeImage) {
+//   placeImage.addEventListener('click', zoomPopupImage)
+// });
+
+
+// // закрыть карточку по кнопке крестик
+function closePopupZoom() {
+  popupZoom.classList.remove('popup_opened');
+}
+
+//
+buttonCloseZoom.addEventListener('click', closePopupZoom);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
