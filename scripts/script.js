@@ -167,47 +167,33 @@ function removeElement() {
 //РАБОТА С УВЕЛИЧЕНИЕМ КАРТИНКИ
 let popupZoom = document.querySelector('.popup-zoom');
 let buttonCloseZoom = document.querySelector('.popup-zoom__button-close');
-let zoomImages = document.querySelectorAll('.popup-zoom__image');
-let placeImages = document.querySelectorAll('.element__image');
+let placeImages = document.querySelectorAll('.element__image'); //
 let placePopup = document.querySelectorAll('.popup-zoom__subheading');
 
-// 
-
+// открыть большую картинку с подписью
 const openPopupZoom = (event) => {
-  const imageUrl = event.target.getAttribute('src');
-  const popupImage = popupZoom.querySelector('.popup-zoom__image');
-  popupImage.setAttribute('src', imageUrl);
+  const placeImages = event.target.getAttribute('src');
+  const popupZoomImage = popupZoom.querySelector('.popup-zoom__image');
+  popupZoomImage.setAttribute('src', placeImages);
   
-  const subheading = event.target.closest('.element').querySelector('.element__subheading').textContent;
-  const popupSubheading = popupZoom.querySelector('.popup-zoom__subheading');
-  popupSubheading.textContent = subheading;
+  const placeName = event.target.closest('.element').querySelector('.element__subheading').textContent;
+  const placePopup = popupZoom.querySelector('.popup-zoom__subheading');
+  placePopup.textContent = placeName;
   
   popupZoom.classList.add('popup_opened');
 };
 
-
+//слушатель функции, чтобы открыть картинку
 placeImages.forEach(image => {
   image.addEventListener('click', openPopupZoom);
 });
 
-// function zoomPopupImage() {
-//   placeValue = placePopup.textContent;
-//   jobInput.value = profileJob.textContent;
-//   popupZoom.classList.add('popup_opened');
-// };
-
-// //
-// placeImages.forEach(function(placeImage) {
-//   placeImage.addEventListener('click', zoomPopupImage)
-// });
-
-
-// // закрыть карточку по кнопке крестик
+// закрыть карточку по кнопке крестик
 function closePopupZoom() {
   popupZoom.classList.remove('popup_opened');
 }
 
-//
+// слушатель функции для закрытия большой
 buttonCloseZoom.addEventListener('click', closePopupZoom);
 
 
