@@ -51,6 +51,9 @@ const placeInput = document.querySelector('.popup__input_type_place');
 const imageInput = document.querySelector('.popup__input_type_image');
 const formElementAdd = document.querySelector('.popup-add__form'); 
 
+// вызов селекторов попапа с большой картинкой
+const popupZoom = document.querySelector('.popup-zoom');
+const buttonCloseZoom = document.querySelector('.popup-zoom__button-close');
 
 
 // открытие сайт с картинками из массива + поставить лайк
@@ -60,7 +63,7 @@ initialCards.forEach(function (item) {
 });
 
 function createCard(item) {
-  const newCard = elementTemplate.cloneNode(true);
+  const newCard = elementTemplate.cloneNode(true); // клонирую шаблон
 
   const placeName = newCard.querySelector('.element__subheading');
   placeName.textContent = item.name;
@@ -69,15 +72,28 @@ function createCard(item) {
   placeImage.src = item.link;
   placeImage.alt = item.name;
 
+  //поставить лайк
   const likeButton = newCard.querySelector('.element__vector');
   likeButton.addEventListener('click', function () {
     likeButton.classList.toggle('element__vector_active');
   });
 
+  //удалить карточку
   const trashButton = newCard.querySelector('.element__trash');
   trashButton.addEventListener('click', function () {
     trashButton.closest('.element').remove();
+
   });
+
+  // попап большая картинка
+  const zoomImage = document.querySelector('.popup-zoom__image');
+  // слушатель для открытия большой картина
+  placeImage.addEventListener('click', function () {
+  openPopup(popupZoom);
+  zoomImage.src = item.link;
+  zoomImage.alt = item.name;
+  zoomImage.textContent = item.name;
+});
 
   return newCard;
 }
@@ -144,29 +160,7 @@ addButton.addEventListener('click', function() {openPopup(popupAdd)});
 buttonCloseAdd.addEventListener('click', function() {closePopup(popupAdd)});
 
 
-
-
-//РАБОТА С УВЕЛИЧЕНИЕМ КАРТИНКИ
-const popupZoom = document.querySelector('.popup-zoom');
-const placeImages = document.querySelectorAll('.element__image');
-const buttonCloseZoom = document.querySelector('.popup-zoom__button-close');
-const popupZoomImage = document.querySelector('.popup-zoom__image');
-const placePopup = document.querySelector('.popup-zoom__subheading');
-
-const openPopupZoom = (event) => {
-  const placeImage = event.target.getAttribute('src');
-  popupZoomImage.setAttribute('src', placeImage);
-  
-  const placeName = event.target.closest('.element').querySelector('.element__subheading').textContent;
-  placePopup.textContent = placeName;
-
-  openPopup(popupZoom);
-};
-
-placeImages.forEach(image => {
-  image.addEventListener('click', openPopupZoom);
-});
-
+// работа с попапом с большой картинкой
 // слушатель функции для закрытия большой картинки
 buttonCloseZoom.addEventListener('click', function() {closePopup(popupZoom)});
 
