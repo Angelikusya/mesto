@@ -95,7 +95,6 @@ function createCard(item) {
   zoomSubheading.alt = item.name;
   zoomSubheading.textContent = item.name;
 });
-
   return newCard;
 }
 
@@ -151,6 +150,7 @@ formElementAdd.addEventListener('submit', function (evt) {
   elementsCard.prepend(addCard);
 
   closePopup(popupAdd);
+  formElementAdd.reset();
 });
 
 //слушатели функции попапа ADD
