@@ -87,12 +87,13 @@ function createCard(item) {
 
   // попап большая картинка
   const zoomImage = document.querySelector('.popup-zoom__image');
+  const zoomSubheading = document.querySelector('.popup-zoom__subheading');
   // слушатель для открытия большой картина
   placeImage.addEventListener('click', function () {
   openPopup(popupZoom);
   zoomImage.src = item.link;
-  zoomImage.alt = item.name;
-  zoomImage.textContent = item.name;
+  zoomSubheading.alt = item.name;
+  zoomSubheading.textContent = item.name;
 });
 
   return newCard;
