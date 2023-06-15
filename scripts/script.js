@@ -153,12 +153,28 @@ formElementAdd.addEventListener('submit', function (evt) {
   formElementAdd.reset();
 });
 
+
+//функция закрытия попапа по нажатию на Esc
+
+function closePopupEsc(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened'); // нашли открытый попап
+    closePopup(openedPopup);
+  }
+}
+
+// добавляем обработчик события закрыть на кнопку esc ко всем попапам
+document.addEventListener('keydown', closePopupEsc);
+
+
+
 //слушатели функции попапа ADD
 // открываем попап с редактирование профиля
 addButton.addEventListener('click', function() {openPopup(popupAdd)});
 
 //закрываем попап Add по кнопке закрыть
 buttonCloseAdd.addEventListener('click', function() {closePopup(popupAdd)});
+
 
 
 // работа с попапом с большой картинкой

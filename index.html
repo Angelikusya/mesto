@@ -42,17 +42,23 @@
                     <h2 class="popup__heading">Редактировать профиль</h2>
                     <form class="popup-edit__form popup__form" name="profileEditPopupForm">
                         <input
+                            id="name-input"
                             type="text" 
                             name = "Name"
                             class="popup__input popup__input_type_name"
                             placeholder="Введите имя"
+                            minlength="2" maxlength="40"
                             required>
-                            <input 
-                                type="text" 
-                                name = "Job"
-                                class="popup__input popup__input_type_job"
-                                placeholder="Введите профессию" 
-                                required>
+                        <span class="popup__input-error name-input-error"></span>
+                        <input 
+                            id="job-input"
+                            type="text" 
+                            name = "Job"
+                            class="popup__input popup__input_type_job"
+                            placeholder="Введите профессию"
+                            minlength="2" maxlength="200"
+                            required>
+                        <span class="popup__input-error job-input-error"></span>
                         <button class="popup__button" type="submit">Сохранить</button>
                     </form>
                     <button type="button" class="button popup-edit__button-close popup__button-close"></button>
@@ -66,17 +72,22 @@
                     <h2 class="popup__heading">Новое место</h2>
                     <form class="popup-add__form popup__form" name="profileAddPopupForm">
                         <input
+                            id="place-input"
                             type="text" 
                             name = "Place"
                             class="popup__input popup__input_type_place"
                             placeholder="Название"
+                            minlength="1" maxlength="30"
                             required>
-                            <input 
-                                type="text" 
-                                name = "image"
-                                class="popup__input popup__input_type_image"
-                                placeholder="Ссылка на картинку"
-                                required>
+                        <span class="popup__input-error place-input-error"></span>
+                        <input  
+                            id="image-input"
+                            name = "image"
+                            class="popup__input popup__input_type_image"
+                            placeholder="Ссылка на картинку"
+                            type="url"
+                            required>
+                        <span class="popup__input-error image-input-error"></span>
                         <button class="popup__button" type="submit">Создать</button>
                     </form>
                     <button type="button" class="button popup__button-close popup-add__button-close"></button>
