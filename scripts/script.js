@@ -158,14 +158,27 @@ formElementAdd.addEventListener('submit', function (evt) {
 
 function closePopupEsc(evt) {
   if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened'); // нашли открытый попап
+    const openedPopup = document.querySelector('.popup_opened'); // ищем открытый попап
     closePopup(openedPopup);
   }
 }
 
+//функция зарытия попапа по нажатию за пределами попапа
+function closePopupOnOverlayClick(evt) {
+  if (evt.target.classList.contains('popup')) {
+    closePopup(evt.target);
+  }
+}
+
+
+
+
+
+// добавить слушатель события на клик вне его области
+document.addEventListener('click', closePopupOnOverlayClick);
+
 // добавляем обработчик события закрыть на кнопку esc ко всем попапам
 document.addEventListener('keydown', closePopupEsc);
-
 
 
 //слушатели функции попапа ADD
