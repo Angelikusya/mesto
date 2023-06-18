@@ -1,3 +1,5 @@
+
+
 // пока что карточки оставила здесь, так так 
 const initialCards = [
   {
@@ -108,22 +110,28 @@ const openPopup = function (item) {
   item.classList.add('popup_opened');
 }
 
-const hideError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove(`${inputErrorClass}`);
-  errorElement.classList.remove(`${errorClass}`); 
-  errorElement.textContent = ''; 
-};
+
  
 //закрыть попап
 const closePopup = function (item) {
   item.classList.remove('popup_opened');
   const formElement = item.querySelector('.popup__form');
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  inputList.forEach((inputElement) => {
-    hideError(formElement, inputElement, 'popup__input_type_error', 'popup__input-error_active');
-  });
+  if (formElement) {
+    const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+    inputList.forEach((inputElement) => {
+      hideError(formElement, inputElement);
+    });
+  }
 }
+
+
+//скрыть ошибки при закрытии попапа
+const hideError = (formElement, inputElement) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove('popup__input_type_error');
+  errorElement.classList.remove('popup__input-error_active'); 
+  errorElement.textContent = ''; 
+};
 
 
 // РАБОТА С ПОПАПОМ EDIT 
