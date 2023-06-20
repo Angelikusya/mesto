@@ -1,33 +1,3 @@
-
-
-// пока что карточки оставила здесь, так так 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 //вызов селекторов попапа edit
 const editButton = document.querySelector('.profile__edit-button');
 const popupEdit = document.querySelector('.popup-edit');
@@ -38,7 +8,6 @@ const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 const buttonCloseEdit = document.querySelector('.popup-edit__button-close');
 const popup = document.querySelector('.popup');
-
 
 // Вызов шаблона
 const elementsCard = document.querySelector('.elements');
@@ -56,9 +25,8 @@ const formElementAdd = document.querySelector('.popup-add__form');
 // вызов селекторов попапа с большой картинкой
 const popupZoom = document.querySelector('.popup-zoom');
 const buttonCloseZoom = document.querySelector('.popup-zoom__button-close');
-
-
-
+const zoomImage = popupZoom.querySelector('.popup-zoom__image');
+const zoomSubheading = popupZoom.querySelector('.popup-zoom__subheading');
 
 // открытие сайт с картинками из массива + поставить лайк
 initialCards.forEach(function (item) {
@@ -90,8 +58,6 @@ function createCard(item) {
   });
 
   // попап большая картинка
-  const zoomImage = document.querySelector('.popup-zoom__image');
-  const zoomSubheading = document.querySelector('.popup-zoom__subheading');
   // слушатель для открытия большой картина
   placeImage.addEventListener('click', function () {
   openPopup(popupZoom);
@@ -104,40 +70,30 @@ function createCard(item) {
 
 //ОБЩИЕ ФУНКЦИИ
 
-
 //открыть попап
 const openPopup = function (item) {
   item.classList.add('popup_opened');
+  document.addEventListener('click', closePopupOnOverlayClick);
+  document.addEventListener('keydown', closePopupEsc);
+  const form = item.querySelector('.popup__form'); // добавляем валидацию формы при открытии попапа
+  if (form) {
+    resetValidation(form); // сбросить ошибки валидации формы
+    setEventListeners(form); // добавить обработчики событий для валидации формы
+  }
 }
-
-
  
 //закрыть попап
 const closePopup = function (item) {
   item.classList.remove('popup_opened');
-  const formElement = item.querySelector('.popup__form');
-  if (formElement) {
-    const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-    inputList.forEach((inputElement) => {
-      hideError(formElement, inputElement);
-    });
-  }
+  resetValidation (item); // и сбросить ошибки привалидации формы
+  document.removeEventListener('click', closePopupOnOverlayClick); // слушатель события на клик вне его области
+  document.removeEventListener('keydown', closePopupEsc);//слушатель события на кнопку Esc
 }
-
-
-//скрыть ошибки при закрытии попапа
-const hideError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('popup__input_type_error');
-  errorElement.classList.remove('popup__input-error_active'); 
-  errorElement.textContent = ''; 
-};
-
 
 // РАБОТА С ПОПАПОМ EDIT 
 
 //открытие попапа по клику на кнопку "редактировать/edit"
-function editPopup() {
+function openEditProfileForm() {
   openPopup(popupEdit);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
@@ -150,19 +106,7 @@ function handleEditFormSubmit(evt) {
   closePopup(popupEdit);
 }
 
-
-// слушатели функций
-// открываем попап с редактирование профиля
-editButton.addEventListener('click', function() {editPopup()});
-//закрыть попап по кнопке крестик
-buttonCloseEdit.addEventListener('click', function() {closePopup(popupEdit)});
-//отправляем форму загрузки 
-formElementEdit.addEventListener('submit', handleEditFormSubmit);
-
-
-
 // РАБОТА С ПОПАПОМ ADD 
-//
 formElementAdd.addEventListener('submit', function (evt) {
   evt.preventDefault(); //отмена стадартной формы обработки
   const placeValue = placeInput.value; // какая информация куда заходит
@@ -174,7 +118,6 @@ formElementAdd.addEventListener('submit', function (evt) {
   closePopup(popupAdd);
   formElementAdd.reset();
 });
-
 
 //функция закрытия попапа по нажатию на Esc
 
@@ -192,13 +135,12 @@ function closePopupOnOverlayClick(evt) {
   }
 }
 
-
-// добавить слушатель события на клик вне его области
-document.addEventListener('click', closePopupOnOverlayClick);
-
-// добавляем обработчик события закрыть на кнопку esc ко всем попапам
-document.addEventListener('keydown', closePopupEsc);
-
+// открываем попап с редактирование профиля
+editButton.addEventListener('click', function() {openEditProfileForm()});
+//закрыть попап по кнопке крестик
+buttonCloseEdit.addEventListener('click', function() {closePopup(popupEdit)});
+//отправляем форму загрузки 
+formElementEdit.addEventListener('submit', handleEditFormSubmit);
 
 //слушатели функции попапа ADD
 // открываем попап с редактирование профиля
@@ -207,25 +149,6 @@ addButton.addEventListener('click', function() {openPopup(popupAdd)});
 //закрываем попап Add по кнопке закрыть
 buttonCloseAdd.addEventListener('click', function() {closePopup(popupAdd)});
 
-
 // работа с попапом с большой картинкой
 // слушатель функции для закрытия большой картинки
 buttonCloseZoom.addEventListener('click', function() {closePopup(popupZoom)});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
