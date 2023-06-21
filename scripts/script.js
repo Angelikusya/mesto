@@ -91,6 +91,10 @@ function openEditProfileForm(config) {
   openPopup(popupEdit);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
+    //сборос кнопки добавить после отправки формы. у меня больше нет идей как это сделать. Я буду признательна, если Вы подскажите, если тут все равно ошибка. Благодарю безмерно
+  const submitButtonSelector = popupEdit.querySelector('.popup__button');
+  submitButtonSelector.classList.remove('popup__button_disabled');
+  submitButtonSelector.removeAttribute('disabled', true);
 }
 
 function handleEditFormSubmit(evt) {
