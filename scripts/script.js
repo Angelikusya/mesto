@@ -75,17 +75,11 @@ const openPopup = function (item) {
   item.classList.add('popup_opened');
   document.addEventListener('click', closePopupOnOverlayClick);
   document.addEventListener('keydown', closePopupEsc);
-  const form = item.querySelector('.popup__form'); // добавляем валидацию формы при открытии попапа
-  if (form) {
-    resetValidation(form); // сбросить ошибки валидации формы
-    setEventListeners(form); // добавить обработчики событий для валидации формы
-  }
 }
  
 //закрыть попап
 const closePopup = function (item) {
   item.classList.remove('popup_opened');
-  resetValidation (item); // и сбросить ошибки привалидации формы
   document.removeEventListener('click', closePopupOnOverlayClick); // слушатель события на клик вне его области
   document.removeEventListener('keydown', closePopupEsc);//слушатель события на кнопку Esc
 }
@@ -93,7 +87,7 @@ const closePopup = function (item) {
 // РАБОТА С ПОПАПОМ EDIT 
 
 //открытие попапа по клику на кнопку "редактировать/edit"
-function openEditProfileForm() {
+function openEditProfileForm(config) {
   openPopup(popupEdit);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
@@ -116,7 +110,13 @@ formElementAdd.addEventListener('submit', function (evt) {
   elementsCard.prepend(addCard);
 
   closePopup(popupAdd);
+
   formElementAdd.reset();
+  
+  //сборос кнопки добавить после отправки формы
+  const submitButtonSelector = popupAdd.querySelector('.popup__button');
+  submitButtonSelector.classList.add('popup__button_disabled');
+  submitButtonSelector.setAttribute('disabled', true);
 });
 
 //функция закрытия попапа по нажатию на Esc
@@ -136,15 +136,23 @@ function closePopupOnOverlayClick(evt) {
 }
 
 // открываем попап с редактирование профиля
-editButton.addEventListener('click', function() {openEditProfileForm()});
+editButton.addEventListener('click', function() {
+  openEditProfileForm();
+  resetValidation(formElementEdit, validationConfig);
+});
+
 //закрыть попап по кнопке крестик
-buttonCloseEdit.addEventListener('click', function() {closePopup(popupEdit)});
+buttonCloseEdit.addEventListener('click', function() {
+  closePopup(popupEdit)
+});
 //отправляем форму загрузки 
 formElementEdit.addEventListener('submit', handleEditFormSubmit);
 
 //слушатели функции попапа ADD
 // открываем попап с редактирование профиля
-addButton.addEventListener('click', function() {openPopup(popupAdd)});
+addButton.addEventListener('click', function() {
+  openPopup(popupAdd);
+});
 
 //закрываем попап Add по кнопке закрыть
 buttonCloseAdd.addEventListener('click', function() {closePopup(popupAdd)});
