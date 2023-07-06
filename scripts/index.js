@@ -1,3 +1,7 @@
+import { initialCards }  from './constants.js';
+import { Card } from './card.js';
+import { FormValidator } from './validate.js';
+
 //вызов селекторов попапа edit
 const editButton = document.querySelector('.profile__edit-button');
 const popupEdit = document.querySelector('.popup-edit');
@@ -28,45 +32,55 @@ const buttonCloseZoom = document.querySelector('.popup-zoom__button-close');
 const zoomImage = popupZoom.querySelector('.popup-zoom__image');
 const zoomSubheading = popupZoom.querySelector('.popup-zoom__subheading');
 
+//вводные для валидации формы
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+};
+
 // открытие сайт с картинками из массива + поставить лайк
 initialCards.forEach(function (item) {
   const newCard = createCard(item);
   elementsCard.append(newCard);
 });
 
-function createCard(item) {
-  const newCard = elementTemplate.cloneNode(true); // клонирую шаблон
+// function createCard(item) {
+//   const newCard = elementTemplate.cloneNode(true); // клонирую шаблон
 
-  const placeName = newCard.querySelector('.element__subheading');
-  placeName.textContent = item.name;
+//   const placeName = newCard.querySelector('.element__subheading');
+//   placeName.textContent = item.name;
 
-  const placeImage = newCard.querySelector('.element__image');
-  placeImage.src = item.link;
-  placeImage.alt = item.name;
+//   const placeImage = newCard.querySelector('.element__image');
+//   placeImage.src = item.link;
+//   placeImage.alt = item.name;
 
-  //поставить лайк
-  const likeButton = newCard.querySelector('.element__vector');
-  likeButton.addEventListener('click', function () {
-    likeButton.classList.toggle('element__vector_active');
-  });
+//   //поставить лайк
+//   const likeButton = newCard.querySelector('.element__vector');
+//   likeButton.addEventListener('click', function () {
+//     likeButton.classList.toggle('element__vector_active');
+//   });
 
-  //удалить карточку
-  const trashButton = newCard.querySelector('.element__trash');
-  trashButton.addEventListener('click', function () {
-    trashButton.closest('.element').remove();
+//   //удалить карточку
+//   const trashButton = newCard.querySelector('.element__trash');
+//   trashButton.addEventListener('click', function () {
+//     trashButton.closest('.element').remove();
 
-  });
+//   });
 
-  // попап большая картинка
-  // слушатель для открытия большой картина
-  placeImage.addEventListener('click', function () {
-  openPopup(popupZoom);
-  zoomImage.src = item.link;
-  zoomSubheading.alt = item.name;
-  zoomSubheading.textContent = item.name;
-});
-  return newCard;
-}
+//   // попап большая картинка
+//   // слушатель для открытия большой картина
+//   placeImage.addEventListener('click', function () {
+//   openPopup(popupZoom);
+//   zoomImage.src = item.link;
+//   zoomSubheading.alt = item.name;
+//   zoomSubheading.textContent = item.name;
+// });
+//   return newCard;
+// }
 
 //ОБЩИЕ ФУНКЦИИ
 
@@ -142,7 +156,7 @@ function closePopupOnOverlayClick(evt) {
 // открываем попап с редактирование профиля
 editButton.addEventListener('click', function() {
   openEditProfileForm();
-  resetValidation(formElementEdit, validationConfig);
+  popupEditValidation.resetValidation();
 });
 
 //закрыть попап по кнопке крестик
@@ -164,3 +178,12 @@ buttonCloseAdd.addEventListener('click', function() {closePopup(popupAdd)});
 // работа с попапом с большой картинкой
 // слушатель функции для закрытия большой картинки
 buttonCloseZoom.addEventListener('click', function() {closePopup(popupZoom)});
+
+
+//ВАЛИДАЦИЯ форм
+const popupEditValidation = new FormValidator(validationConfig, formElementEdit);
+popupEditValidation.enableValidation();
+
+const popupAddValidation = new FormValidator(validationConfig, formElementAdd);
+popupAddValidation.enableValidation();
+
