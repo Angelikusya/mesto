@@ -1,3 +1,4 @@
+//импорты функций
 import { initialCards }  from './constants.js';
 import { Card } from './card.js';
 import { FormValidator } from './validate.js';
@@ -12,6 +13,7 @@ const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 const buttonCloseEdit = document.querySelector('.popup-edit__button-close');
 const popup = document.querySelector('.popup');
+const submitButton = document.querySelector('.popup__button');
 
 // Вызов шаблона
 const elementsCard = document.querySelector('.elements');
@@ -42,48 +44,29 @@ const validationConfig = {
   errorClass: 'popup__input-error_active'
 };
 
+// РАБОТА С КАРТОЧКАМИ
+//создание карточки 
+function createCard(data, templateSelector) {
+  const card = new Card(data, templateSelector);
+  const cardItem = card.showCard();
+  return cardItem;
+}
+
 // открытие сайт с картинками из массива + поставить лайк
 initialCards.forEach(function (item) {
-  const newCard = createCard(item);
+  const newCard = createCard(item, '.element-template');
   elementsCard.append(newCard);
 });
 
-// function createCard(item) {
-//   const newCard = elementTemplate.cloneNode(true); // клонирую шаблон
+  // попап большая картинка
+  export function zoomPopup (name, link) {
+    openPopup(popupZoom);
+    zoomImage.src = link;
+    zoomSubheading.alt = name;
+    zoomSubheading.textContent = name;
+  }
 
-//   const placeName = newCard.querySelector('.element__subheading');
-//   placeName.textContent = item.name;
-
-//   const placeImage = newCard.querySelector('.element__image');
-//   placeImage.src = item.link;
-//   placeImage.alt = item.name;
-
-//   //поставить лайк
-//   const likeButton = newCard.querySelector('.element__vector');
-//   likeButton.addEventListener('click', function () {
-//     likeButton.classList.toggle('element__vector_active');
-//   });
-
-//   //удалить карточку
-//   const trashButton = newCard.querySelector('.element__trash');
-//   trashButton.addEventListener('click', function () {
-//     trashButton.closest('.element').remove();
-
-//   });
-
-//   // попап большая картинка
-//   // слушатель для открытия большой картина
-//   placeImage.addEventListener('click', function () {
-//   openPopup(popupZoom);
-//   zoomImage.src = item.link;
-//   zoomSubheading.alt = item.name;
-//   zoomSubheading.textContent = item.name;
-// });
-//   return newCard;
-// }
-
-//ОБЩИЕ ФУНКЦИИ
-
+//РАБОТА С ПОПАПАМИ
 //открыть попап
 const openPopup = function (item) {
   item.classList.add('popup_opened');
@@ -101,14 +84,10 @@ const closePopup = function (item) {
 // РАБОТА С ПОПАПОМ EDIT 
 
 //открытие попапа по клику на кнопку "редактировать/edit"
-function openEditProfileForm(config) {
+function openEditProfileForm() {
   openPopup(popupEdit);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-    //сборос кнопки добавить после отправки формы. у меня больше нет идей как это сделать. Я буду признательна, если Вы подскажите, если тут все равно ошибка. Благодарю безмерно
-  const submitButtonSelector = popupEdit.querySelector('.popup__button');
-  submitButtonSelector.classList.remove('popup__button_disabled');
-  submitButtonSelector.removeAttribute('disabled', true);
 }
 
 function handleEditFormSubmit(evt) {
@@ -121,22 +100,20 @@ function handleEditFormSubmit(evt) {
 // РАБОТА С ПОПАПОМ ADD 
 formElementAdd.addEventListener('submit', function (evt) {
   evt.preventDefault(); //отмена стадартной формы обработки
+
   const placeValue = placeInput.value; // какая информация куда заходит
   const imageValue = imageInput.value;
 
-  const addCard = createCard({ name: placeValue, link: imageValue });
-  elementsCard.prepend(addCard);
+  const newCard = createCard({ name: placeValue, link: imageValue }, '.element-template');
 
-  closePopup(popupAdd);
+  elementsCard.prepend(newCard);
+
+  closePopup(popupAdd); 
 
   formElementAdd.reset();
-  
-  //сборос кнопки добавить после отправки формы
-  const submitButtonSelector = popupAdd.querySelector('.popup__button');
-  submitButtonSelector.classList.add('popup__button_disabled');
-  submitButtonSelector.setAttribute('disabled', true);
 });
 
+//РАБОТА с ФИЧАМИ
 //функция закрытия попапа по нажатию на Esc
 
 function closePopupEsc(evt) {
@@ -153,10 +130,12 @@ function closePopupOnOverlayClick(evt) {
   }
 }
 
+//СЛУШАТЕЛИ ФУНКЦИЙ
 // открываем попап с редактирование профиля
 editButton.addEventListener('click', function() {
   openEditProfileForm();
   popupEditValidation.resetValidation();
+  submitButton.classList.remove('popup__button_disabled');
 });
 
 //закрыть попап по кнопке крестик
@@ -166,19 +145,18 @@ buttonCloseEdit.addEventListener('click', function() {
 //отправляем форму загрузки 
 formElementEdit.addEventListener('submit', handleEditFormSubmit);
 
-//слушатели функции попапа ADD
 // открываем попап с редактирование профиля
 addButton.addEventListener('click', function() {
   openPopup(popupAdd);
+  popupAddValidation.resetValidation();
+  formElementAdd.reset();
 });
 
 //закрываем попап Add по кнопке закрыть
 buttonCloseAdd.addEventListener('click', function() {closePopup(popupAdd)});
 
-// работа с попапом с большой картинкой
 // слушатель функции для закрытия большой картинки
 buttonCloseZoom.addEventListener('click', function() {closePopup(popupZoom)});
-
 
 //ВАЛИДАЦИЯ форм
 const popupEditValidation = new FormValidator(validationConfig, formElementEdit);
@@ -186,4 +164,3 @@ popupEditValidation.enableValidation();
 
 const popupAddValidation = new FormValidator(validationConfig, formElementAdd);
 popupAddValidation.enableValidation();
-
