@@ -1,11 +1,11 @@
 //импорты функций
-import { initialCards }  from './constants.js';
-import { Card } from './card.js';
-import { FormValidator } from './validate.js';
+import { initialCards }  from './initialCards.js';
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
 
 //вызов селекторов попапа edit
-const editButton = document.querySelector('.profile__edit-button');
-const popupEdit = document.querySelector('.popup-edit');
+const buttonEditProfile = document.querySelector('.profile__edit-button');
+const popupEditProfile = document.querySelector('.popup-edit');
 const formElementEdit = document.querySelector('.popup-edit__form'); 
 const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_job');
@@ -14,6 +14,7 @@ const profileJob = document.querySelector('.profile__job');
 const buttonCloseEdit = document.querySelector('.popup-edit__button-close');
 const popup = document.querySelector('.popup');
 const submitButton = document.querySelector('.popup__button');
+const form = document.querySelector('.popup__form')
 
 // Вызов шаблона
 const elementsCard = document.querySelector('.elements');
@@ -21,8 +22,8 @@ const element = document.querySelector('.element');
 const elementTemplate = document.querySelector('.element-template').content; 
 
 // вызов селекторов попапа add
-const addButton = document.querySelector('.profile__add-button');
-const popupAdd = document.querySelector('.popup-add');
+const buttonAddProfile = document.querySelector('.profile__add-button');
+const popupAddCard = document.querySelector('.popup-add');
 const buttonCloseAdd = document.querySelector('.popup-add__button-close');
 const placeInput = document.querySelector('.popup__input_type_place');
 const imageInput = document.querySelector('.popup__input_type_image');
@@ -60,10 +61,10 @@ initialCards.forEach(function (item) {
 
   // попап большая картинка
   export function zoomPopup (name, link) {
-    openPopup(popupZoom);
     zoomImage.src = link;
     zoomSubheading.alt = name;
     zoomSubheading.textContent = name;
+    openPopup(popupZoom);
   }
 
 //РАБОТА С ПОПАПАМИ
@@ -85,7 +86,7 @@ const closePopup = function (item) {
 
 //открытие попапа по клику на кнопку "редактировать/edit"
 function openEditProfileForm() {
-  openPopup(popupEdit);
+  openPopup(popupEditProfile);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 }
@@ -94,7 +95,7 @@ function handleEditFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  closePopup(popupEdit);
+  closePopup(popupEditProfile);
 }
 
 // РАБОТА С ПОПАПОМ ADD 
@@ -108,7 +109,7 @@ formElementAdd.addEventListener('submit', function (evt) {
 
   elementsCard.prepend(newCard);
 
-  closePopup(popupAdd); 
+  closePopup(popupAddCard); 
 
   formElementAdd.reset();
 });
@@ -132,28 +133,29 @@ function closePopupOnOverlayClick(evt) {
 
 //СЛУШАТЕЛИ ФУНКЦИЙ
 // открываем попап с редактирование профиля
-editButton.addEventListener('click', function() {
+buttonEditProfile.addEventListener('click', function() {
   openEditProfileForm();
   popupEditValidation.resetValidation();
-  submitButton.classList.remove('popup__button_disabled');
+  sumbitButtonValidator.removeErrorClass();
 });
 
 //закрыть попап по кнопке крестик
 buttonCloseEdit.addEventListener('click', function() {
-  closePopup(popupEdit)
+  closePopup(popupEditProfile)
 });
 //отправляем форму загрузки 
 formElementEdit.addEventListener('submit', handleEditFormSubmit);
 
 // открываем попап с редактирование профиля
-addButton.addEventListener('click', function() {
-  openPopup(popupAdd);
+buttonAddProfile.addEventListener('click', function() {
+  openPopup(popupAddCard);
   popupAddValidation.resetValidation();
   formElementAdd.reset();
+  sumbitButtonValidator.removeErrorClass();
 });
 
 //закрываем попап Add по кнопке закрыть
-buttonCloseAdd.addEventListener('click', function() {closePopup(popupAdd)});
+buttonCloseAdd.addEventListener('click', function() {closePopup(popupAddCard)});
 
 // слушатель функции для закрытия большой картинки
 buttonCloseZoom.addEventListener('click', function() {closePopup(popupZoom)});
@@ -164,3 +166,5 @@ popupEditValidation.enableValidation();
 
 const popupAddValidation = new FormValidator(validationConfig, formElementAdd);
 popupAddValidation.enableValidation();
+
+const sumbitButtonValidator = new FormValidator(validationConfig, form);

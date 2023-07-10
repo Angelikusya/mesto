@@ -1,4 +1,4 @@
-import {zoomPopup} from './index.js'
+import { zoomPopup } from './index.js'
 
 export class Card {
   constructor(data, templateSelector) {
@@ -33,6 +33,7 @@ export class Card {
 
   _trashCardButton() {
     this._element.remove();
+    this._element = null;
   }
 
   _zoomImage() {

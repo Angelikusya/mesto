@@ -9,6 +9,7 @@ export class FormValidator {
     this._inputErrorClass = validation.inputErrorClass; 
     this._errorClass = validation.errorClass;
     this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
+    this._submitButton = this._form.querySelector(this._submitButtonSelector);
   }
 
   //показать ошибку, если форма не валидна
@@ -45,16 +46,14 @@ export class FormValidator {
 
   //добавляю ошибки
   _addErrorClass() {
-    const submitButton = this._form.querySelector(this._submitButtonSelector);
-    submitButton.classList.add(this._inactiveButtonClass);                
-    submitButton.disabled = true; 
+    this._submitButton.classList.add(this._inactiveButtonClass);                
+    this._submitButton.disabled = true; 
   };
 
   //убираю ошибки
-  _removeErrorClass() {
-    const submitButton = this._form.querySelector(this._submitButtonSelector);
-    submitButton.classList.remove(this._inactiveButtonClass);                
-    submitButton.disabled = false; 
+  removeErrorClass() {
+    this._submitButton.classList.remove(this._inactiveButtonClass);                
+    this._submitButton.disabled = false; 
   };
 
   //блокировка кнопки в случае, если поле невалидно
@@ -62,7 +61,7 @@ export class FormValidator {
     if (this._hasInvalidInput()) {
       this._addErrorClass(); 
     } else {
-      this._removeErrorClass(); 
+      this.removeErrorClass(); 
     };
   };
   
