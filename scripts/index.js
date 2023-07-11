@@ -136,7 +136,7 @@ function closePopupOnOverlayClick(evt) {
 buttonEditProfile.addEventListener('click', function() {
   openEditProfileForm();
   popupEditValidation.resetValidation();
-  sumbitButtonValidator.removeErrorClass();
+  popupEditValidation.removeErrorClass();
 });
 
 //закрыть попап по кнопке крестик
@@ -166,5 +166,3 @@ popupEditValidation.enableValidation();
 
 const popupAddValidation = new FormValidator(validationConfig, formElementAdd);
 popupAddValidation.enableValidation();
-
-const sumbitButtonValidator = new FormValidator(validationConfig, form);
