@@ -1,6 +1,6 @@
 //импорты функций
 import { initialCards }  from './initialCards.js';
-import { Card } from './Card.js';
+import { card } from './card.js';
 import { FormValidator } from './FormValidator.js';
 
 //вызов селекторов попапа edit
@@ -48,8 +48,8 @@ const validationConfig = {
 // РАБОТА С КАРТОЧКАМИ
 //создание карточки 
 function createCard(data, templateSelector) {
-  const card = new Card(data, templateSelector);
-  const cardItem = card.showCard();
+  const Card = new card(data, templateSelector);
+  const cardItem = Card.showCard();
   return cardItem;
 }
 
