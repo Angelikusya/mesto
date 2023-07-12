@@ -1,7 +1,7 @@
 //импорты функций
-import { initialCards }  from './initialCards.js';
-import { Сard } from './Card.js';
-import { FormValidator } from './formValidator.js';
+import { initialCards } from './initialCards.js';
+import { Card }  from './Card.js';
+import { FormValidator } from './FormValidator.js';
 
 //вызов селекторов попапа edit
 const buttonEditProfile = document.querySelector('.profile__edit-button');
@@ -48,7 +48,7 @@ const validationConfig = {
 // РАБОТА С КАРТОЧКАМИ
 //создание карточки 
 function createCard(data, templateSelector) {
-  const сard = new Сard(data, templateSelector);
+  const сard = new Card(data, templateSelector);
   const cardItem = сard.showCard();
   return cardItem;
 }

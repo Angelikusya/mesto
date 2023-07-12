@@ -1,6 +1,6 @@
 import { zoomPopup } from './index.js'
 
-export class Сard {
+export class Card {
   constructor(data, templateSelector) {
     this._data = data;
     this._templateSelector = templateSelector;
