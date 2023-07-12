@@ -1,6 +1,6 @@
 //импорты функций
 import { initialCards }  from './initialCards.js';
-import { Сard } from './card.js';
+import { Сard } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 
 //вызов селекторов попапа edit

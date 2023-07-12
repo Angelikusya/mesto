@@ -1,5 +1,5 @@
 import { zoomPopup } from './index.js'
-//когда загружаю на гитхаб, у файла автоматически меняется регистр первой буквы названия файла 
+
 export class Сard {
   constructor(data, templateSelector) {
     this._data = data;
