@@ -1,7 +1,7 @@
 //импорты функций
 import { initialCards }  from './initialCards.js';
 import { Сard } from './Card.js';
-import { FormValidator } from './FormValidator.js';
+import { FormValidator } from './formValidator.js';
 
 //вызов селекторов попапа edit
 const buttonEditProfile = document.querySelector('.profile__edit-button');
