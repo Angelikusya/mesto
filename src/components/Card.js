@@ -1,15 +1,15 @@
-import { zoomPopup } from './index.js'
-
+//создаем карточку
 export class Card {
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, handleCardClick) {
     this._data = data;
     this._templateSelector = templateSelector;
     this._name = data.name;
     this._link = data.link;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
-    const newCard = document.querySelector(this._templateSelector).content.querySelector('.element').cloneNode(true);
+    const newCard =  document.querySelector(this._templateSelector).content.querySelector('.element').cloneNode(true);
     return newCard;
   }
 
@@ -36,21 +36,21 @@ export class Card {
     this._element = null;
   }
 
-  _zoomImage() {
-    zoomPopup(this._name, this._link);
-  }
+  handleImageClick() {
+    this._handleCardClick(this._name, this._link);
+   } 
 
   _setEventListeners() {
     this._likeCard.addEventListener('click', () => {
       this._likeActive();
     });
 
-    this._trashCard. addEventListener('click', () => {
+    this._trashCard.addEventListener('click', () => {
       this._trashCardButton();
     });
 
     this._imageCard.addEventListener('click', () => {
-      this._zoomImage();
+      this.handleImageClick();
     });
   }
 }

@@ -43,7 +43,7 @@
                     <input
                         id="name-input"
                         type="text" 
-                        name = "Name"
+                        name = "name"
                         class="popup__input popup__input_type_name"
                         placeholder="Введите имя"
                         minlength="2" maxlength="40"
@@ -52,7 +52,7 @@
                     <input 
                         id="job-input"
                         type="text" 
-                        name = "Job"
+                        name = "job"
                         class="popup__input popup__input_type_job"
                         placeholder="Введите профессию"
                         minlength="2" maxlength="200"
@@ -60,7 +60,7 @@
                     <span class="popup__input-error job-input-error"></span>
                     <button class="popup__button" type="submit">Сохранить</button>
                 </form>
-                <button type="button" class="button popup-edit__button-close popup__button-close"></button>
+                <button type="button" class="button popup__button-close popup-edit__button-close"></button>
             </div>
         </div>
 
@@ -73,7 +73,7 @@
                     <input
                         id="place-input"
                         type="text" 
-                        name = "Place"
+                        name = "place"
                         class="popup__input popup__input_type_place"
                         placeholder="Название"
                         minlength="2" maxlength="30"
@@ -99,7 +99,7 @@
         <!--Popup: Картинка на весь экран-->
         <div class="popup popup-zoom" id="popup-zoom">
             <div class="popup-zoom__container">
-                <button type="button" class="button popup-zoom__button-close"></button>
+                <button type="button" class="button popup__button-close popup-zoom__button-close"></button>
                 <img src="#" alt="Увеличенное фото" class="popup-zoom__image">
                 <h2 class="popup-zoom__subheading"></h2>
             </div>
@@ -132,6 +132,6 @@
         <p class="footer__copyrights">&copy; 2023 Mesto Russia
         </p>
     </footer>
-<script type="module" src="scripts/index.js"></script>
+<script type="module" src="./pages/index.js"></script>
 </body>
 </html>
