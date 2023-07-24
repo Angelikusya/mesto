@@ -1,3 +1,5 @@
+// испорт стилей
+import './index.css'; // добавьте импорт главного файла стилей 
 //импорт констант
 import { initialCards, 
   buttonEditProfile,
