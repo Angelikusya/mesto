@@ -1,13 +1,13 @@
-// испорт стилей
+// импорт стилей
 import './index.css'; // добавьте импорт главного файла стилей 
 //импорт констант
-import { initialCards, 
-  buttonEditProfile,
-  formElementEdit, 
-  nameInput, 
-  jobInput,
-  buttonAddProfile, 
-  formElementAdd } from '../utils/constants.js';
+import {initialCards, 
+        buttonEditProfile,
+        formElementEdit, 
+        nameInput, 
+        jobInput,
+        buttonAddProfile, 
+        formElementAdd } from '../utils/constants.js';
 
 //импорты классов
 import { Card }  from '../components/Card.js';
@@ -18,52 +18,45 @@ import UserInfo  from '../components/UserInfo.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 
+//ВАЛИДАЦИЯ форм
+const popupEditValidation = new FormValidator(validationConfig, formElementEdit);
+popupEditValidation.enableValidation();
+
+const popupAddValidation = new FormValidator(validationConfig, formElementAdd);
+popupAddValidation.enableValidation();
+
 // РАБОТА С КАРТОЧКАМИ
 //добавление 6 карточек на страницу сайта
-function createCard(data) {
+function generateCard(data) {
   const card = new Card(data, '.element-template', handleCardClick);
-//отобразили карточку на странице
-  return card.showCard();
+
+  return card.createCard(); //отобразили карточку на странице
 }
 
 //создаем экземпляр класса для отображения карточек
-const cardsList = new Section({ 
+const cardsSection = new Section({ 
 	items: initialCards, 
 	renderer: (item) => { 
-		const cardElement = createCard(item); 
-		cardsList.addItem(cardElement); //добавляем карточки на страницу
+		const cardElement = generateCard(item); 
+		cardsSection.addItem(cardElement); //добавляем карточки на страницу
 	} 
-}, '.elements', handleCardClick);
+}, '.elements');
   
-cardsList.renderItems()
+cardsSection.renderItems()
 
 // попап большая картинка
 const newPopupZoom = new PopupWithImage('#popup-zoom');
-newPopupZoom.setEventListeners();
 
 function handleCardClick(name, link) {
   newPopupZoom.open(name, link);
 }
 
-
-// РАБОТА С ПОПАПОМ EDIT 
+// функции попапа EDIT 
 //создали экземпляр класса
 const profileInfo = new UserInfo({ nameSelector: '.profile__name', jobSelector: '.profile__job' });
 
 //создали экземпляр класса
 const popupEditProfile = new PopupWithForm('#popup-edit', handleEditFormSubmit); 
-popupEditProfile.setEventListeners();
-
-//установили слушатели событий для получения информации с сайта
-buttonEditProfile.addEventListener('click', () => {
-popupEditProfile.open();
-const profileData = profileInfo.getUserInfo(); 
-nameInput.value = profileData.name; 
-jobInput.value = profileData.job; 
-
-popupEditValidation.resetValidation();
-popupEditValidation.removeErrorClass();
-});
 
 //загрузили изменения на сайт
 function handleEditFormSubmit(data) {
@@ -71,18 +64,19 @@ function handleEditFormSubmit(data) {
   popupEditProfile.close();
 }
 
+function handleEditButtonClick() {
+  popupEditProfile.open();
+  const profileData = profileInfo.getUserInfo(); 
+  nameInput.value = profileData.name; 
+  jobInput.value = profileData.job; 
 
-// РАБОТА С ПОПАПОМ ADD 
+  popupEditValidation.resetValidation();
+  popupEditValidation.enableButton();
+}
+
+// функции попапа ADD 
 //создали экземпляр класса
 const popupAddProfile = new PopupWithForm('#popup-add', handleAddFormSubmit); 
-popupAddProfile.setEventListeners();
-
-//установили слушатели событий для получения информации с сайта
-buttonAddProfile.addEventListener('click', () => {
-popupAddProfile.open();
-
-popupAddValidation.resetValidation();
-});
 
 //отправка формы, чтобы карточка появилась 
 function handleAddFormSubmit(data) {
@@ -91,15 +85,22 @@ function handleAddFormSubmit(data) {
     link: data.image,
   });
 
-  const newElement = createCard(addCart); 
-  cardsList.addItem(newElement); //добавляем карточки на страницу
+  const newElement = generateCard(addCart); 
+  cardsSection.addItem(newElement); //добавляем карточки на страницу
   popupAddProfile.close();
 }
 
+function handleAddButtonClick(){
+  popupAddProfile.open();
+  popupAddValidation.resetValidation();
+}
 
-//ВАЛИДАЦИЯ форм
-const popupEditValidation = new FormValidator(validationConfig, formElementEdit);
-popupEditValidation.enableValidation();
+//установили слушатели событий для EDIT
+buttonEditProfile.addEventListener('click',handleEditButtonClick);
 
-const popupAddValidation = new FormValidator(validationConfig, formElementAdd);
-popupAddValidation.enableValidation();
+//установили слушатели событий для ADD
+buttonAddProfile.addEventListener('click', handleAddButtonClick);
+
+popupEditProfile.setEventListeners();
+popupAddProfile.setEventListeners();
+newPopupZoom.setEventListeners();

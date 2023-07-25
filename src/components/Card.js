@@ -1,7 +1,6 @@
 //создаем карточку
 export class Card {
   constructor(data, templateSelector, handleCardClick) {
-    this._data = data;
     this._templateSelector = templateSelector;
     this._name = data.name;
     this._link = data.link;
@@ -13,7 +12,7 @@ export class Card {
     return newCard;
   }
 
-  showCard() {
+  createCard() {
     this._element = this._getTemplate();
     this._imageCard = this._element.querySelector('.element__image');
     this._nameCard = this._element.querySelector('.element__subheading');
@@ -21,17 +20,18 @@ export class Card {
     this._trashCard = this._element.querySelector('.element__trash');
     this._nameCard.textContent = this._name;
     this._imageCard.src = this._link;
+    this._imageCard.alt = this._name;
 
     this._setEventListeners();
 
     return this._element;
   }
 
-  _likeActive() {
+  _handleLikeClick() {
     this._likeCard.classList.toggle('element__vector_active');
   }
 
-  _trashCardButton() {
+  _handleDeleteClick() {
     this._element.remove();
     this._element = null;
   }
@@ -42,11 +42,11 @@ export class Card {
 
   _setEventListeners() {
     this._likeCard.addEventListener('click', () => {
-      this._likeActive();
+      this._handleLikeClick();
     });
 
     this._trashCard.addEventListener('click', () => {
-      this._trashCardButton();
+      this._handleDeleteClick();
     });
 
     this._imageCard.addEventListener('click', () => {

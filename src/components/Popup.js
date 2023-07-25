@@ -1,11 +1,11 @@
 //открываем и закрываем popup
 export default class Popup {
     constructor(popupSelector) {
-      this._popup = document.querySelector(popupSelector);
-      this._closeButton = this._popup.querySelector('.popup__button-close');
-      this._handleEscClose = this._handleEscClose.bind(this);
-      this._handleOverlayClickClose = this._handleOverlayClickClose.bind(this);
-      this.close = this.close.bind(this);
+        this._popup = document.querySelector(popupSelector);
+        this._closeButton = this._popup.querySelector('.popup__button-close');
+        this._handleEscClose = this._handleEscClose.bind(this);
+        this._handleOverlayClickClose = this._handleOverlayClickClose.bind(this);
+        this.close = this.close.bind(this);
     }  
 
     //открыть попап и включить кнопку закрятия на ESC

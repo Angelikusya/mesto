@@ -45,13 +45,13 @@ export class FormValidator {
   };
 
   //добавляю ошибки
-  _addErrorClass() {
+  _disableButton() {
     this._submitButton.classList.add(this._inactiveButtonClass);                
     this._submitButton.disabled = true; 
   };
 
   //убираю ошибки
-  removeErrorClass() {
+  enableButton() {
     this._submitButton.classList.remove(this._inactiveButtonClass);                
     this._submitButton.disabled = false; 
   };
@@ -59,9 +59,9 @@ export class FormValidator {
   //блокировка кнопки в случае, если поле невалидно
   _toggleButtonState() {
     if (this._hasInvalidInput()) {
-      this._addErrorClass(); 
+      this._disableButton(); 
     } else {
-      this.removeErrorClass(); 
+      this.enableButton(); 
     };
   };
   
@@ -82,11 +82,11 @@ export class FormValidator {
   };
 
     //сброс ошибок 
-    resetValidation() {
+  resetValidation() {
     this._inputList.forEach((inputElement) => {
       this._hideError(inputElement);
     });
-    this._addErrorClass();
+    this._disableButton();
   };
 }
 
