@@ -38,7 +38,12 @@ export const jobInput = document.querySelector('.popup__input_type_job');
 export const buttonAddProfile = document.querySelector('.profile__add-button');
 export const formElementAdd = document.querySelector('.popup-add__form'); 
 
-// вызов селекторов попапа с большой картинкой
+//селекторы для попапа edit avatar
+export const buttonEditProfileAvatar = document.querySelector('.profile__edit-avatar');
+export const popupEditAvatar = document.querySelector('.popup-edit-avatar');
+export const formElementEditAvatar = document.querySelector('.popup-edit-avatar__form'); 
+export const avatarInput = document.querySelector('.popup__input_type_link'); 
+
 
 //вводные для валидации формы
 export const validationConfig = {

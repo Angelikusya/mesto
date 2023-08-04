@@ -12,16 +12,21 @@
     <main>
         <section class="profile">
             <div class="profile__content">
-                <img src="<%=require('../src/images/jaciv.jpg')%>" alt="фото профиля" class="profile__avatar">
+                <button 
+                type="button"
+                class="profile__edit-avatar">
+                    <img src="#" alt="аватар профиля" class="profile__avatar">
+                    <div class="profile__edit-avatar-icon"></div>
+                </button>    
                 <div class="profile__info">
                     <div class="profile__container">
-                        <h1 id="profile__name" class="profile__name">Жак-Ив Кусто</h1>
+                        <h1 id="profile__name" class="profile__name"></h1>
                         <button
                         type="button"
                         class="button profile__edit-button">
                         </button>
                     </div>
-                    <p id="profile__job" class="profile__job">Исследователь океана</p>
+                    <p id="profile__job" class="profile__job"></p>
                 </div>
             </div>
             <button
@@ -91,8 +96,25 @@
                 <button type="button" class="button popup__button-close popup-add__button-close"></button>
             </div>
         </div>
+                <!--Popup: обновить аватар-->
 
-
+        <div class="popup popup-edit-avatar" id="popup-edit-avatar">
+            <div class="popup__container">
+                <h2 class="popup__heading">Обновить аватар</h2>
+                <form class="popup-edit-avatar__form popup__form" name="profileAddPopupForm" novalidate>
+                    <input  
+                        id="image-input"
+                        name = "link"
+                        class="popup__input popup__input_type_link"
+                        placeholder="Ссылка на картинку"
+                        type="url"
+                        required>
+                    <span class="popup__input-error image-input-error"></span>
+                    <button class="popup__button" type="submit">Сохранить</button>
+                </form>
+                <button type="button" class="button popup__button-close popup-add__button-close"></button>
+            </div>
+        </div>
 
 
         <!--Popup: Картинка на весь экран-->
@@ -103,9 +125,6 @@
                 <h2 class="popup-zoom__subheading"></h2>
             </div>
         </div>
-
-
-
 
                 <!--Шаблон для ввода новых картинок-->
 
