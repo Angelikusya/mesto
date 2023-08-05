@@ -19,8 +19,9 @@ export default class UserInfo {
     this._avatarSelector.src = avatar; 
     this._avatarSelector.alt = name; 
   }
+
   changeAvatar(avatar) {
-    this._avatarSelector.src = avatar
+    this._avatarSelector.src = avatar;
   }
 }
 

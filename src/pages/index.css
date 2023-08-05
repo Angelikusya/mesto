@@ -23,6 +23,8 @@
 @import url("../blocks/element/__vector/element__vector.css");
 @import url("../blocks/element/__vector/_active/element__vector_active.css");
 @import url("../blocks/element/__description/element__description.css");
+@import url("../blocks/element/__like-counter/element__like-counter.css");
+@import url("../blocks/element/__group-like/element__group-like.css");
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/footer/__copyrights/footer__copyrights.css");
 @import url("../blocks/popup/popup.css");

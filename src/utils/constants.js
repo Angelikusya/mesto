@@ -42,7 +42,10 @@ export const formElementAdd = document.querySelector('.popup-add__form');
 export const buttonEditProfileAvatar = document.querySelector('.profile__edit-avatar');
 export const popupEditAvatar = document.querySelector('.popup-edit-avatar');
 export const formElementEditAvatar = document.querySelector('.popup-edit-avatar__form'); 
-export const avatarInput = document.querySelector('.popup__input_type_link'); 
+export const avatarInput = document.querySelector('.popup__input_type_link');
+
+//селекторы для popup sure
+export const popupSure = document.querySelector('.popup-sure'); 
 
 
 //вводные для валидации формы

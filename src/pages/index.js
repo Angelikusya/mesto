@@ -30,15 +30,13 @@ const api = new Api ({
 });
 
   //получаем информацию о пользователе и отображаем ее на странице
-  api.getUserInfo()
+api.getUserInfo()
   .then(data => {
     profileInfo.setUserInfo(data);
   })
   .catch(err => {
     console.log(err);
-  });
-
-
+});
 
 // функции попапа EDIT 
 //создали экземпляр класса
@@ -48,24 +46,20 @@ const profileInfo = new UserInfo({
   avatarSelector: '.profile__avatar'
 });
 
-
 //создали экземпляр класса
 const popupEditProfile = new PopupWithForm('#popup-edit', handleEditFormSubmit); 
 
 //загрузили изменения на сайт
 function handleEditFormSubmit(data) {
-  api.setUserInfo(data.name, data.job)
-  .then((userInfo) => {
-    profileInfo.setUserInfo({ name: userInfo.name, about: userInfo.about, avatar: userInfo.avatar });
-    popupEditProfile.close();
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+  api.setUserInfo(data.name, data.about)
+    .then(() => {
+      profileInfo.setUserInfo(data.name, data.about);
+      popupEditProfile.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
-
-
-   popupEditProfile.close();
 
 //открыть попап EDIT
 function handleEditButtonClick() {
@@ -96,11 +90,18 @@ function handleAddFormSubmit(data) {
     name: data.place,
     link: data.image,
   });
-
-  const newElement = generateCard(addCart); 
-  cardsSection.addItem(newElement); //добавляем карточки на страницу
-  popupAddProfile.close();
+  
+  api.addCard(addCart.name, addCart.link)
+    .then((data) => {
+      const newElement = generateCard(data);
+      cardsSection.addItem(newElement); //добавляем карточки на страницу
+      popupAddProfile.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
+
 
 function handleAddButtonClick(){
   popupAddProfile.open();
@@ -138,7 +139,6 @@ popupEditAvatarProfile.setEventListeners();
 
 
 
-
 // попап большая картинка
 const newPopupZoom = new PopupWithImage('#popup-zoom');
 
@@ -147,15 +147,7 @@ function handleCardClick(name, link) {
 }
 newPopupZoom.setEventListeners();
 
-  //ВАЛИДАЦИЯ форм
-const popupEditValidation = new FormValidator(validationConfig, formElementEdit);
-popupEditValidation.enableValidation();
 
-const popupAddValidation = new FormValidator(validationConfig, formElementAdd);
-popupAddValidation.enableValidation();
-
-const popupEditAvatarValidation = new FormValidator(validationConfig, formElementEditAvatar);
-popupEditAvatarValidation.enableValidation();
 
 //получаем данные с сервера и отображаем карточки
 api.getInitialCards()
@@ -191,3 +183,19 @@ api.getInitialCards()
   .catch(err => {
     console.log(err);
   }); 
+
+
+
+
+
+
+
+    //ВАЛИДАЦИЯ форм
+const popupEditValidation = new FormValidator(validationConfig, formElementEdit);
+popupEditValidation.enableValidation();
+
+const popupAddValidation = new FormValidator(validationConfig, formElementAdd);
+popupAddValidation.enableValidation();
+
+const popupEditAvatarValidation = new FormValidator(validationConfig, formElementEditAvatar);
+popupEditAvatarValidation.enableValidation();
