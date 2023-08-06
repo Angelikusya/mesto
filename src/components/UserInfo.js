@@ -8,7 +8,7 @@ export default class UserInfo {
   getUserInfo() {
     const userData = {
         name: this._nameSelector.textContent, 
-        job: this._jobSelector.textContent
+        job: this._jobSelector.textContent,
     };
     return userData;
   }

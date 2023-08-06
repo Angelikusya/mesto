@@ -31,14 +31,6 @@ const api = new Api ({
 });
 
 
-  //получаем информацию о пользователе и отображаем ее на странице
-// api.getUserInfo()
-//   .then(data => {
-//     profileInfo.setUserInfo(data);
-//   })
-//   .catch(err => {
-//     console.log(err);
-// });
 
 // функции попапа EDIT 
 //создали экземпляр класса
@@ -48,20 +40,37 @@ const profileInfo = new UserInfo({
   avatarSelector: '.profile__avatar'
 });
 
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userInfo, initialCards]) => {
+    profileInfo.setUserInfo(userInfo);
+    cardsSection.renderItems(initialCards);
+    userId = userInfo._id; 
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+
+
 //создали экземпляр класса
 const popupEditProfile = new PopupWithForm('#popup-edit', handleEditFormSubmit); 
 
 //загрузили изменения на сайт
 function handleEditFormSubmit(data) {
-  api.setUserInfo(data.name, data.about)
-    .then(() => {
-      profileInfo.setUserInfo(data.name, data.about);
-      popupEditProfile.close();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  popupEditProfile.renderLoading(true);
+  api.setUserInfo(data.name, data.job)
+  .then((userInfo) => {
+    profileInfo.setUserInfo({ name: userInfo.name, about: userInfo.about, avatar: userInfo.avatar });
+    popupEditProfile.close();
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  .finally(() => {
+    popupEditProfile.renderLoading(false);
+  });
 }
+
+
 
 //открыть попап EDIT
 function handleEditButtonClick() {
@@ -79,9 +88,6 @@ popupEditProfile.setEventListeners();
 buttonEditProfile.addEventListener('click',handleEditButtonClick);
 
 
-
-
-
 // функции попапа ADD 
 //создали экземпляр класса
 const popupAddProfile = new PopupWithForm('#popup-add', handleAddFormSubmit); 
@@ -93,6 +99,8 @@ function handleAddFormSubmit(data) {
     link: data.image,
   });
   
+  popupAddProfile.renderLoading(true);
+
   api.addCard(addCart.name, addCart.link)
     .then((data) => {
       const newElement = generateCard(data);
@@ -101,6 +109,9 @@ function handleAddFormSubmit(data) {
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      popupAddProfile.renderLoading(false);
     });
 }
 
@@ -116,11 +127,6 @@ buttonAddProfile.addEventListener('click', handleAddButtonClick);
 
 popupAddProfile.setEventListeners();
 
-
-
-
-
-
 //РАБОТА С АВАТАРОМ
 const popupEditAvatarProfile = new PopupWithForm('#popup-edit-avatar', handleEditAvatarFormSubmit);
 
@@ -130,8 +136,18 @@ function handleEditAvatarButtonClick() {
 }
 
 function handleEditAvatarFormSubmit(data) {
-  // обновляем аватар на странице
-  popupEditAvatarProfile.close();
+  //popupEditAvatarProfile.renderLoading(true);
+  api.setUserAvatar(data.link)
+    .then((res) => {
+      profileInfo.changeAvatar(res.avatar);
+      popupEditAvatarProfile.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    // .finally(() => {
+    //   popupEditAvatarProfile.renderLoading(false);
+    // });
 }
 
 //установили слушатели событий для EDIT
@@ -173,17 +189,9 @@ const cardsSection = new Section({
   } 
 }, '.elements');
 
+
 let userId;
 
-Promise.all([api.getUserInfo(), api.getInitialCards()])
-  .then(([userInfo, initialCards]) => {
-    profileInfo.setUserInfo(userInfo);
-    cardsSection.renderItems(initialCards);
-    userId = userInfo._id; 
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 
 popupConfirmation.setEventListeners();
 
