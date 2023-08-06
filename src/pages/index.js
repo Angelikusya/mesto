@@ -22,6 +22,7 @@ import UserInfo  from '../components/UserInfo.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import Api from '../components/Api.js';
+import PopupConfirmation from '../components/PopupConfirmation';
 
 // вызов Api
 const api = new Api ({
@@ -29,14 +30,15 @@ const api = new Api ({
   token: "f0a7d939-ec7a-4869-a9eb-1d96ec39a9dd"
 });
 
+
   //получаем информацию о пользователе и отображаем ее на странице
-api.getUserInfo()
-  .then(data => {
-    profileInfo.setUserInfo(data);
-  })
-  .catch(err => {
-    console.log(err);
-});
+// api.getUserInfo()
+//   .then(data => {
+//     profileInfo.setUserInfo(data);
+//   })
+//   .catch(err => {
+//     console.log(err);
+// });
 
 // функции попапа EDIT 
 //создали экземпляр класса
@@ -149,22 +151,19 @@ newPopupZoom.setEventListeners();
 
 
 
-//получаем данные с сервера и отображаем карточки
-api.getInitialCards()
-  .then(cards => {
-    cardsSection.renderItems(cards); // передаем массив карточек в метод renderItems()
-  })
-  .catch(err => {
-    console.log(err);
-  }); 
-
-// РАБОТА С КАРТОЧКАМИ
-//добавление карточек на страницу сайта
-function generateCard(item) {
-  const card = new Card(item, '.element-template', handleCardClick);
-
-  return card.createCard(); //отобразили карточку на странице
-}
+const popupConfirmation = new PopupConfirmation('.popup-sure',
+  (evt, cardId, card) => {
+    evt.preventDefault();
+    api.removeCard(cardId)
+      .then(() => {
+        card.removeElement(cardId);
+        popupConfirmation.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
 
 //создаем экземпляр класса для отображения карточек
 const cardsSection = new Section({ 
@@ -174,15 +173,29 @@ const cardsSection = new Section({
   } 
 }, '.elements');
 
+let userId;
 
-//получаем данные с сервера и отображаем карточки
-api.getInitialCards()
-  .then(cards => {
-    cardsSection.renderItems(cards); // передаем массив карточек в метод renderItems()
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userInfo, initialCards]) => {
+    profileInfo.setUserInfo(userInfo);
+    cardsSection.renderItems(initialCards);
+    userId = userInfo._id; 
   })
-  .catch(err => {
+  .catch((err) => {
     console.log(err);
-  }); 
+  });
+
+popupConfirmation.setEventListeners();
+
+//добавление карточек на страницу сайта
+function generateCard(item) {
+  const card = new Card(item, '.element-template', handleCardClick, userId, () => {
+    // коллбэк открытия попапа подтверждения удаления карточки
+    popupConfirmation.open(card._id, card);
+  });
+  return card.createCard();
+}
+
 
 
 
@@ -199,3 +212,4 @@ popupAddValidation.enableValidation();
 
 const popupEditAvatarValidation = new FormValidator(validationConfig, formElementEditAvatar);
 popupEditAvatarValidation.enableValidation();
+

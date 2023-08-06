@@ -11,6 +11,7 @@ export default class Api {
         return Promise.reject(`Ошибка: ${res.status}`)
     };
 
+
     //подтягиваем карточки
     getInitialCards() {
         return fetch (`${this.baseUrl}/cards`, {
@@ -78,17 +79,16 @@ export default class Api {
         })
         .then(this._checkResponse) 
     }
-
-//     // удаляем карточку с сервера
-//     deleteCard(cardId) {
-//         return fetch(`${this.baseUrl}/cards/${cardId}`, {
-//             method: 'DELETE',
-//             headers: {
-//                 authorization: this.token
-//             }
-//         })
-//         .then(this._checkResponse);
-//     }
+    // удаляем карточку с сервера
+    removeCard(cardId) {
+        return fetch(`${this.baseUrl}/cards/${cardId}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: this.token
+            }
+        })
+        .then(this._checkResponse);
+    }
 
 //     // добавляем лайк карточке на сервере
 //     addLike(imageId) {
