@@ -136,7 +136,7 @@ function handleEditAvatarButtonClick() {
 }
 
 function handleEditAvatarFormSubmit(data) {
-  //popupEditAvatarProfile.renderLoading(true);
+  popupEditAvatarProfile.renderLoading(true);
   api.setUserAvatar(data.link)
     .then((res) => {
       profileInfo.changeAvatar(res.avatar);
@@ -145,9 +145,9 @@ function handleEditAvatarFormSubmit(data) {
     .catch((err) => {
       console.log(err);
     })
-    // .finally(() => {
-    //   popupEditAvatarProfile.renderLoading(false);
-    // });
+    .finally(() => {
+      popupEditAvatarProfile.renderLoading(false);
+    });
 }
 
 //установили слушатели событий для EDIT
