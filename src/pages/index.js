@@ -1,7 +1,8 @@
 // импорт стилей
 import './index.css'; // добавьте импорт главного файла стилей 
+
 //импорт констант
-import {initialCards, 
+import { 
         buttonEditProfile,
         formElementEdit, 
         nameInput, 
@@ -9,9 +10,8 @@ import {initialCards,
         buttonAddProfile, 
         formElementAdd,
         buttonEditProfileAvatar,
-        popupEditAvatar,
         formElementEditAvatar,
-        avatarInput } from '../utils/constants.js';
+        } from '../utils/constants.js';
 
 //импорты классов
 import { Card }  from '../components/Card.js';
@@ -24,12 +24,22 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import Api from '../components/Api.js';
 import PopupConfirmation from '../components/PopupConfirmation';
 
+
+//ВАЛИДАЦИЯ форм
+const popupEditValidation = new FormValidator(validationConfig, formElementEdit);
+popupEditValidation.enableValidation();
+
+const popupAddValidation = new FormValidator(validationConfig, formElementAdd);
+popupAddValidation.enableValidation();
+
+const popupEditAvatarValidation = new FormValidator(validationConfig, formElementEditAvatar);
+popupEditAvatarValidation.enableValidation();
+
 // вызов Api
 const api = new Api ({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-72",
   token: "f0a7d939-ec7a-4869-a9eb-1d96ec39a9dd"
 });
-
 
 
 // функции попапа EDIT 
@@ -40,11 +50,13 @@ const profileInfo = new UserInfo({
   avatarSelector: '.profile__avatar'
 });
 
+let userId;
+
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userInfo, initialCards]) => {
+    userId = userInfo._id; 
     profileInfo.setUserInfo(userInfo);
     cardsSection.renderItems(initialCards);
-    userId = userInfo._id; 
   })
   .catch((err) => {
     console.log(err);
@@ -58,18 +70,17 @@ const popupEditProfile = new PopupWithForm('#popup-edit', handleEditFormSubmit);
 function handleEditFormSubmit(data) {
   popupEditProfile.renderLoading(true);
   api.setUserInfo(data.name, data.job)
-  .then((userInfo) => {
-    profileInfo.setUserInfo({ name: userInfo.name, about: userInfo.about, avatar: userInfo.avatar });
-    popupEditProfile.close();
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-  .finally(() => {
-    popupEditProfile.renderLoading(false);
-  });
+    .then((userInfo) => {
+      profileInfo.setUserInfo({ name: userInfo.name, about: userInfo.about, avatar: userInfo.avatar });
+      popupEditProfile.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupEditProfile.renderLoading(false);
+    });
 }
-
 
 
 //открыть попап EDIT
@@ -84,7 +95,6 @@ function handleEditButtonClick() {
 }
 
 popupEditProfile.setEventListeners();
-
 buttonEditProfile.addEventListener('click',handleEditButtonClick);
 
 
@@ -115,17 +125,15 @@ function handleAddFormSubmit(data) {
     });
 }
 
-
 function handleAddButtonClick(){
   popupAddProfile.open();
   popupAddValidation.resetValidation();
 }
 
-
 //установили слушатели событий для ADD
 buttonAddProfile.addEventListener('click', handleAddButtonClick);
-
 popupAddProfile.setEventListeners();
+
 
 //РАБОТА С АВАТАРОМ
 const popupEditAvatarProfile = new PopupWithForm('#popup-edit-avatar', handleEditAvatarFormSubmit);
@@ -150,10 +158,9 @@ function handleEditAvatarFormSubmit(data) {
     });
 }
 
-//установили слушатели событий для EDIT
+//установили слушатели событий для EDIT AVATAR
 buttonEditProfileAvatar.addEventListener('click',handleEditAvatarButtonClick);
 popupEditAvatarProfile.setEventListeners();
-
 
 
 
@@ -163,9 +170,8 @@ const newPopupZoom = new PopupWithImage('#popup-zoom');
 function handleCardClick(name, link) {
   newPopupZoom.open(name, link);
 }
+
 newPopupZoom.setEventListeners();
-
-
 
 const popupConfirmation = new PopupConfirmation('.popup-sure',
   (evt, cardId, card) => {
@@ -189,35 +195,27 @@ const cardsSection = new Section({
   } 
 }, '.elements');
 
-
-let userId;
-
-
 popupConfirmation.setEventListeners();
 
 //добавление карточек на страницу сайта
 function generateCard(item) {
-  const card = new Card(item, '.element-template', handleCardClick, userId, () => {
+  const card = new Card(item, '.element-template', userId, handleCardClick, () => {
     // коллбэк открытия попапа подтверждения удаления карточки
     popupConfirmation.open(card._id, card);
-  });
+  }, 
+   // коллбэк лайка
+  (isLiked, imageId) => {
+    (isLiked ? api.deleteLike(imageId) : api.addLike(imageId))
+      .then((data) => {
+        card.setLikeCounter(data.likes.length);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+  );
+  console.log(userId);
   return card.createCard();
 }
 
-
-
-
-
-
-
-
-    //ВАЛИДАЦИЯ форм
-const popupEditValidation = new FormValidator(validationConfig, formElementEdit);
-popupEditValidation.enableValidation();
-
-const popupAddValidation = new FormValidator(validationConfig, formElementAdd);
-popupAddValidation.enableValidation();
-
-const popupEditAvatarValidation = new FormValidator(validationConfig, formElementEditAvatar);
-popupEditAvatarValidation.enableValidation();
 

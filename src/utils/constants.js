@@ -26,7 +26,6 @@ export const initialCards = [
 ]
 
  //вызов селекторов попапа edit
-
 export const buttonEditProfile = document.querySelector('.profile__edit-button');
 export const popupEditProfile = document.querySelector('.popup-edit');
 export const formElementEdit = document.querySelector('.popup-edit__form'); 

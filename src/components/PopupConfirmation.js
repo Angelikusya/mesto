@@ -22,6 +22,3 @@ export default class PopupConfirmation extends Popup {
         super.setEventListeners();  
     }
 }
-
-
-

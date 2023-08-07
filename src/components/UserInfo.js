@@ -10,6 +10,7 @@ export default class UserInfo {
         name: this._nameSelector.textContent, 
         job: this._jobSelector.textContent,
     };
+
     return userData;
   }
 
@@ -24,5 +25,3 @@ export default class UserInfo {
     this._avatarSelector.src = avatar;
   }
 }
-
-

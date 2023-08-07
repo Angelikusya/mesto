@@ -11,7 +11,6 @@ export default class Api {
         return Promise.reject(`Ошибка: ${res.status}`)
     };
 
-
     //подтягиваем карточки
     getInitialCards() {
         return fetch (`${this.baseUrl}/cards`, {
@@ -79,6 +78,7 @@ export default class Api {
         })
         .then(this._checkResponse) 
     }
+    
     // удаляем карточку с сервера
     removeCard(cardId) {
         return fetch(`${this.baseUrl}/cards/${cardId}`, {
@@ -90,25 +90,25 @@ export default class Api {
         .then(this._checkResponse);
     }
 
-//     // добавляем лайк карточке на сервере
-//     addLike(imageId) {
-//         return fetch(`${this.baseUrl}/cards/likes/${imageId}`, {
-//             method: 'PUT',
-//             headers: {
-//                 authorization: this.token
-//             }
-//         })
-//         .then(this._checkResponse)
-//     }
+    // добавляем лайк карточке на сервере
+    addLike(imageId) {
+        return fetch(`${this.baseUrl}/cards/${imageId}/likes`, {
+            method: 'PUT',
+            headers: {
+                authorization: this.token
+            }
+        })
+        .then(this._checkResponse)
+    }
 
-//     // удаляем лайк карточки на сервере
-//     deleteLike(imageId) {
-//         return fetch(`${this.baseUrl}/cards/likes/${imageId}`, {
-//             method: 'DELETE',
-//             headers: {
-//                 authorization: this.token
-//             }
-//         })
-//         .then(this._checkResponse);
-//     }
+    // удаляем лайк карточки на сервере
+    deleteLike(imageId) {
+        return fetch(`${this.baseUrl}/cards/${imageId}/likes`, {
+            method: 'DELETE',
+            headers: {
+                authorization: this.token
+            }
+        })
+        .then(this._checkResponse);
+    }
 }

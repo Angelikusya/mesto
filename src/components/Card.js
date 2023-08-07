@@ -1,6 +1,6 @@
 //создаем карточку
 export class Card {
-  constructor(data, templateSelector, handleCardClick, userId, handleDeleteCard) {
+  constructor(data, templateSelector, userId, handleCardClick, handleDeleteCard, handleLikeClick) {
     this._templateSelector = templateSelector;
     this._id = data._id;
     this._name = data.name;
@@ -10,6 +10,8 @@ export class Card {
     this._ownerId = data.owner._id;
     this._userId = userId;
     this._handleDeleteCard = handleDeleteCard.bind(this);
+    this._handleLikeClick = handleLikeClick;
+    this._isLiked = false;
   }
 
   _getTemplate() {
@@ -29,22 +31,47 @@ export class Card {
     this._imageCard.alt = this._name;
 
     //добавляем количество лайков из массива с сервера
-    this._setLikeCounter(this._likes.length);
-
+    this.setLikeCounter(this._likes.length);
     //проверяем, является ли пользователь владельцем карточки
-    if (this._userId !== this._ownerId) {
-      this._trashCard.remove();
-    }
-    
+    this._checkOwner();
+    //проверяем, ставил ли пользователь лайк на карточку
+    this._checkLikeStatus();
+    //устанавливаем слушатели
     this._setEventListeners();
 
     return this._element;
   }
 
-  _handleLikeClick() {
-    this._likeCard.classList.toggle('element__vector_active');
+  activateLike() {
+    this._likeCard.classList.add('element__vector_active');
   }
 
+  _checkLikeStatus() {
+    this._likes.forEach((like) => {
+      if (like._id === this._userId) {
+        this._isLiked = true;
+        this.activateLike();
+      }
+    });
+  }
+
+  _toggleLikeState() {
+    this._handleLikeClick(
+      this._isLiked,
+      this._id,
+      this._likeCard
+    );
+
+    this._likeCard.classList.toggle('element__vector_active');
+    this._isLiked = !this._isLiked;
+  }
+
+  _checkOwner() {
+    if (this._userId !== this._ownerId) {
+      this._trashCard.remove();
+    }
+  }
+  
   removeElement() {
     this._element.remove();
     this._element = null;
@@ -55,11 +82,11 @@ export class Card {
    } 
 
   _setEventListeners() {
+    this._likeCard = this._element.querySelector('.element__vector');
     this._likeCard.addEventListener('click', () => {
-      this._handleLikeClick();
+      this._toggleLikeState();
     });
 
-    // Исправлено: вызываем метод handleDeleteCard вместо несуществующего метода _handleDeleteClick
     this._trashCard.addEventListener("click", () => {
       this._handleDeleteCard(this._id, this);
     });
@@ -68,7 +95,8 @@ export class Card {
       this.handleImageClick();
     });
   }
-  _setLikeCounter(likesCount) {
+
+  setLikeCounter(likesCount) {
     this._likeCounter.textContent = likesCount;
   }
 }
