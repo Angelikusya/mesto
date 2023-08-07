@@ -30,7 +30,7 @@ export class Card {
     this._imageCard.src = this._link;
     this._imageCard.alt = this._name;
 
-    //добавляем количество лайков из массива с сервера
+    // добавляем количество лайков на сайт
     this.setLikeCounter(this._likes.length);
     //проверяем, является ли пользователь владельцем карточки
     this._checkOwner();
@@ -47,22 +47,28 @@ export class Card {
   }
 
   _checkLikeStatus() {
-    this._likes.forEach((like) => {
-      if (like._id === this._userId) {
-        this._isLiked = true;
-        this.activateLike();
-      }
-    });
+    this._isLiked = this._likes.some((like) => like._id === this._userId);
+    if (this._isLiked) {
+      this.activateLike();
+    }
   }
+
+  updateLikes(likes) {
+      // добавляем количество лайков на сайт
+    this.setLikeCounter(likes.length);
+    this._likes = likes;
+    this._likeCard.classList.toggle('element__vector_active');
+    this._checkLikeStatus();
+  }
+
 
   _toggleLikeState() {
     this._handleLikeClick(
       this._isLiked,
       this._id,
-      this._likeCard
     );
 
-    this._likeCard.classList.toggle('element__vector_active');
+    //this._likeCard.classList.toggle('element__vector_active');
     this._isLiked = !this._isLiked;
   }
 
@@ -82,7 +88,6 @@ export class Card {
    } 
 
   _setEventListeners() {
-    this._likeCard = this._element.querySelector('.element__vector');
     this._likeCard.addEventListener('click', () => {
       this._toggleLikeState();
     });
@@ -95,8 +100,7 @@ export class Card {
       this.handleImageClick();
     });
   }
-
-  setLikeCounter(likesCount) {
-    this._likeCounter.textContent = likesCount;
+  setLikeCounter(likesCount) { 
+    this._likeCounter.textContent = likesCount; 
   }
 }

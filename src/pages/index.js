@@ -62,7 +62,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     console.log(err);
   })
 
-
 //создали экземпляр класса
 const popupEditProfile = new PopupWithForm('#popup-edit', handleEditFormSubmit); 
 
@@ -71,7 +70,7 @@ function handleEditFormSubmit(data) {
   popupEditProfile.renderLoading(true);
   api.setUserInfo(data.name, data.job)
     .then((userInfo) => {
-      profileInfo.setUserInfo({ name: userInfo.name, about: userInfo.about, avatar: userInfo.avatar });
+      profileInfo.setUserInfo(userInfo);
       popupEditProfile.close();
     })
     .catch((err) => {
@@ -81,7 +80,6 @@ function handleEditFormSubmit(data) {
       popupEditProfile.renderLoading(false);
     });
 }
-
 
 //открыть попап EDIT
 function handleEditButtonClick() {
@@ -96,7 +94,7 @@ function handleEditButtonClick() {
 
 popupEditProfile.setEventListeners();
 buttonEditProfile.addEventListener('click',handleEditButtonClick);
-
+//я пока что не могу структурировать как надо, так как могу потерять некоторые функции
 
 // функции попапа ADD 
 //создали экземпляр класса
@@ -114,7 +112,7 @@ function handleAddFormSubmit(data) {
   api.addCard(addCart.name, addCart.link)
     .then((data) => {
       const newElement = generateCard(data);
-      cardsSection.addItem(newElement); //добавляем карточки на страницу
+      cardsSection.prependItem(newElement); //добавляем карточки на страницу
       popupAddProfile.close();
     })
     .catch((err) => {
@@ -174,11 +172,10 @@ function handleCardClick(name, link) {
 newPopupZoom.setEventListeners();
 
 const popupConfirmation = new PopupConfirmation('.popup-sure',
-  (evt, cardId, card) => {
-    evt.preventDefault();
+  ( cardId, card) => {
     api.removeCard(cardId)
       .then(() => {
-        card.removeElement(cardId);
+        card.removeElement();
         popupConfirmation.close();
       })
       .catch((err) => {
@@ -191,7 +188,7 @@ const popupConfirmation = new PopupConfirmation('.popup-sure',
 const cardsSection = new Section({ 
   renderer: (item) => { 
     const cardElement = generateCard(item); 
-    cardsSection.addItem(cardElement); //добавляем карточки на страницу
+    return cardElement; 
   } 
 }, '.elements');
 
@@ -207,7 +204,7 @@ function generateCard(item) {
   (isLiked, imageId) => {
     (isLiked ? api.deleteLike(imageId) : api.addLike(imageId))
       .then((data) => {
-        card.setLikeCounter(data.likes.length);
+        card.updateLikes(data.likes);
       })
       .catch((err) => {
         console.log(err);

@@ -27,7 +27,6 @@ export const initialCards = [
 
  //вызов селекторов попапа edit
 export const buttonEditProfile = document.querySelector('.profile__edit-button');
-export const popupEditProfile = document.querySelector('.popup-edit');
 export const formElementEdit = document.querySelector('.popup-edit__form'); 
 export const nameInput = document.querySelector('.popup__input_type_name');
 export const jobInput = document.querySelector('.popup__input_type_job');
@@ -39,12 +38,9 @@ export const formElementAdd = document.querySelector('.popup-add__form');
 
 //селекторы для попапа edit avatar
 export const buttonEditProfileAvatar = document.querySelector('.profile__edit-avatar');
-export const popupEditAvatar = document.querySelector('.popup-edit-avatar');
 export const formElementEditAvatar = document.querySelector('.popup-edit-avatar__form'); 
-export const avatarInput = document.querySelector('.popup__input_type_link');
 
-//селекторы для popup sure
-export const popupSure = document.querySelector('.popup-sure'); 
+
 
 
 //вводные для валидации формы
