@@ -1,6 +1,5 @@
 import Popup from "./Popup.js"; 
 
-//это слишком сложно....
 //создаем форму для обновления данных на странице
 export default class PopupConfirmation extends Popup {
     constructor(popupSelector, handleFormSubmit) {

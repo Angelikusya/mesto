@@ -58,7 +58,6 @@ export class Card {
     this.setLikeCounter(likes.length);
     this._likes = likes;
     this._likeCard.classList.toggle('element__vector_active');
-    //this._checkLikeStatus();
     this._isLiked = !this._isLiked;
   }
 

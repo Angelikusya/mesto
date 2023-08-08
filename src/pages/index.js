@@ -94,7 +94,7 @@ function handleEditButtonClick() {
 
 popupEditProfile.setEventListeners();
 buttonEditProfile.addEventListener('click',handleEditButtonClick);
-//я пока что не могу структурировать как надо, так как могу потерять некоторые функции
+
 
 // функции попапа ADD 
 //создали экземпляр класса
