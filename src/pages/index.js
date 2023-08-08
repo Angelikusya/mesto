@@ -188,7 +188,7 @@ const popupConfirmation = new PopupConfirmation('.popup-sure',
 const cardsSection = new Section({ 
   renderer: (item) => { 
     const cardElement = generateCard(item); 
-    return cardElement; 
+    cardsSection.appendItem(cardElement);
   } 
 }, '.elements');
 

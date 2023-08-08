@@ -58,7 +58,8 @@ export class Card {
     this.setLikeCounter(likes.length);
     this._likes = likes;
     this._likeCard.classList.toggle('element__vector_active');
-    this._checkLikeStatus();
+    //this._checkLikeStatus();
+    this._isLiked = !this._isLiked;
   }
 
 
@@ -67,9 +68,6 @@ export class Card {
       this._isLiked,
       this._id,
     );
-
-    //this._likeCard.classList.toggle('element__vector_active');
-    this._isLiked = !this._isLiked;
   }
 
   _checkOwner() {
